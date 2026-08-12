@@ -1,0 +1,312 @@
+﻿Timing is on.
+SET
+Time: 0,283 ms
+SET
+Time: 0,059 ms
+SET
+Time: 0,072 ms
+SET
+Time: 0,053 ms
+############################################################
+# A ┬À Partition Pruning
+############################################################
+
+--- A1 ┬À OHNE Partition Pruning -------------------------------------------
+SET
+Time: 0,053 ms
+                                                                                               QUERY PLAN                                                                                                
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ GroupAggregate  (cost=435881.66..435915.71 rows=200 width=72) (actual time=2502.680..3052.788 rows=10.00 loops=1)
+   Group Key: p.antriebsklasse
+   Buffers: shared hit=134 read=186692 written=781
+   ->  Gather Merge  (cost=435881.66..435910.88 rows=244 width=46) (actual time=2373.847..2759.488 rows=2772126.00 loops=1)
+         Workers Planned: 4
+         Workers Launched: 4
+         Buffers: shared hit=134 read=186692 written=781
+         ->  Sort  (cost=434881.60..434881.76 rows=61 width=46) (actual time=2346.554..2366.925 rows=554425.20 loops=5)
+               Sort Key: p.antriebsklasse
+               Sort Method: quicksort  Memory: 41200kB
+               Buffers: shared hit=134 read=186692 written=781
+               Worker 0:  Sort Method: quicksort  Memory: 41172kB
+               Worker 1:  Sort Method: quicksort  Memory: 40886kB
+               Worker 2:  Sort Method: quicksort  Memory: 41087kB
+               Worker 3:  Sort Method: quicksort  Memory: 40912kB
+               ->  Hash Join  (cost=858.59..434879.80 rows=61 width=46) (actual time=1176.537..2228.628 rows=554425.20 loops=5)
+                     Hash Cond: (f.powertrain_sk = p.powertrain_sk)
+                     Buffers: shared hit=102 read=186692 written=781
+                     ->  Hash Join  (cost=837.79..434858.84 rows=61 width=16) (actual time=1176.067..2147.856 rows=554425.20 loops=5)
+                           Hash Cond: (f.country_sk = c.country_sk)
+                           Buffers: shared hit=17 read=186692 written=781
+                           ->  Parallel Append  (cost=829.61..434728.27 rows=46365 width=18) (actual time=447.836..2012.078 rows=1553985.80 loops=5)
+                                 Buffers: shared hit=5 read=186690 written=781
+                                 ->  Parallel Bitmap Heap Scan on fact_registration_2025 f_5  (cost=901.52..90624.82 rows=9712 width=18) (actual time=447.393..1939.928 rows=1553985.80 loops=5)
+                                       Recheck Cond: (jahr = 2025)
+                                       Heap Blocks: exact=32135
+                                       Buffers: shared read=186678 written=781
+                                       Worker 0:  Heap Blocks: exact=31322
+                                       Worker 1:  Heap Blocks: exact=30646
+                                       Worker 2:  Heap Blocks: exact=31769
+                                       Worker 3:  Heap Blocks: exact=31034
+                                       ->  Bitmap Index Scan on fact_registration_2025_pkey  (cost=0.00..891.81 rows=38850 width=0) (actual time=442.770..442.771 rows=7769929.00 loops=1)
+                                             Index Cond: (jahr = 2025)
+                                             Index Searches: 1
+                                             Buffers: shared read=29772 written=195
+                                 ->  Parallel Bitmap Heap Scan on fact_registration_2023 f_3  (cost=889.71..90392.93 rows=9590 width=18) (actual time=0.543..0.544 rows=0.00 loops=1)
+                                       Recheck Cond: (jahr = 2025)
+                                       Buffers: shared read=3
+                                       ->  Bitmap Index Scan on fact_registration_2023_pkey  (cost=0.00..880.12 rows=38358 width=0) (actual time=0.534..0.535 rows=0.00 loops=1)
+                                             Index Cond: (jahr = 2025)
+                                             Index Searches: 1
+                                             Buffers: shared read=3
+                                 ->  Parallel Bitmap Heap Scan on fact_registration_2024 f_4  (cost=889.23..89354.25 rows=9574 width=18) (actual time=0.492..0.493 rows=0.00 loops=1)
+                                       Recheck Cond: (jahr = 2025)
+                                       Buffers: shared read=3
+                                       ->  Bitmap Index Scan on fact_registration_2024_pkey  (cost=0.00..879.65 rows=38296 width=0) (actual time=0.481..0.482 rows=0.00 loops=1)
+                                             Index Cond: (jahr = 2025)
+                                             Index Searches: 1
+                                             Buffers: shared read=3
+                                 ->  Parallel Bitmap Heap Scan on fact_registration_2021 f_1  (cost=829.61..83423.98 rows=8941 width=18) (actual time=0.598..0.598 rows=0.00 loops=1)
+                                       Recheck Cond: (jahr = 2025)
+                                       Buffers: shared read=3
+                                       ->  Bitmap Index Scan on fact_registration_2021_pkey  (cost=0.00..820.67 rows=35765 width=0) (actual time=0.578..0.578 rows=0.00 loops=1)
+                                             Index Cond: (jahr = 2025)
+                                             Index Searches: 1
+                                             Buffers: shared read=3
+                                 ->  Parallel Bitmap Heap Scan on fact_registration_2022 f_2  (cost=793.44..80692.31 rows=8548 width=18) (actual time=0.553..0.553 rows=0.00 loops=1)
+                                       Recheck Cond: (jahr = 2025)
+                                       Buffers: shared read=3
+                                       ->  Bitmap Index Scan on fact_registration_2022_pkey  (cost=0.00..784.89 rows=34194 width=0) (actual time=0.477..0.478 rows=0.00 loops=1)
+                                             Index Cond: (jahr = 2025)
+                                             Index Searches: 1
+                                             Buffers: shared read=3
+                                 ->  Parallel Index Scan using fact_registration_rest_pkey on fact_registration_rest f_6  (cost=0.15..8.16 rows=1 width=18) (actual time=0.019..0.019 rows=0.00 loops=1)
+                                       Index Cond: (jahr = 2025)
+                                       Index Searches: 1
+                                       Buffers: shared hit=5
+                           ->  Hash  (cost=8.17..8.17 rows=1 width=2) (actual time=0.059..0.060 rows=1.00 loops=5)
+                                 Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                 Buffers: shared hit=12 read=2
+                                 ->  Index Scan using dim_country_ms_code_key on dim_country c  (cost=0.15..8.17 rows=1 width=2) (actual time=0.054..0.054 rows=1.00 loops=5)
+                                       Index Cond: (ms_code = 'DE'::bpchar)
+                                       Index Searches: 5
+                                       Buffers: shared hit=12 read=2
+                     ->  Hash  (cost=14.80..14.80 rows=480 width=34) (actual time=0.459..0.459 rows=21.00 loops=5)
+                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                           Buffers: shared hit=85
+                           ->  Seq Scan on dim_powertrain p  (cost=0.00..14.80 rows=480 width=34) (actual time=0.448..0.450 rows=21.00 loops=5)
+                                 Buffers: shared hit=85
+ Planning:
+   Buffers: shared hit=604 read=31 dirtied=4
+ Planning Time: 13.554 ms
+ Execution Time: 3055.286 ms
+(83 rows)
+
+Time: 3078,958 ms (00:03,079)
+
+--- A2 ┬À MIT Partition Pruning --------------------------------------------
+SET
+Time: 0,112 ms
+                                                                                  QUERY PLAN                                                                                   
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ GroupAggregate  (cost=91109.69..91110.96 rows=51 width=72) (actual time=4573.489..4887.452 rows=10.00 loops=1)
+   Group Key: p.antriebsklasse
+   Buffers: shared hit=5544250 read=186682 written=854
+   ->  Sort  (cost=91109.69..91109.82 rows=51 width=46) (actual time=4498.015..4590.782 rows=2772126.00 loops=1)
+         Sort Key: p.antriebsklasse
+         Sort Method: quicksort  Memory: 180678kB
+         Buffers: shared hit=5544250 read=186682 written=854
+         ->  Nested Loop  (cost=909.85..91108.24 rows=51 width=46) (actual time=771.653..4032.403 rows=2772126.00 loops=1)
+               Buffers: shared hit=5544250 read=186682 written=854
+               ->  Hash Join  (cost=909.70..91099.76 rows=51 width=16) (actual time=771.591..2020.940 rows=2772126.00 loops=1)
+                     Hash Cond: (f.country_sk = c.country_sk)
+                     Buffers: shared read=186680 written=854
+                     ->  Bitmap Heap Scan on fact_registration_2025 f  (cost=901.52..90989.04 rows=38850 width=18) (actual time=416.336..1460.419 rows=7769929.00 loops=1)
+                           Recheck Cond: (jahr = 2025)
+                           Heap Blocks: exact=156906
+                           Buffers: shared read=186678 written=854
+                           ->  Bitmap Index Scan on fact_registration_2025_pkey  (cost=0.00..891.81 rows=38850 width=0) (actual time=390.560..390.560 rows=7769929.00 loops=1)
+                                 Index Cond: (jahr = 2025)
+                                 Index Searches: 1
+                                 Buffers: shared read=29772 written=287
+                     ->  Hash  (cost=8.17..8.17 rows=1 width=2) (actual time=0.045..0.046 rows=1.00 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                           Buffers: shared read=2
+                           ->  Index Scan using dim_country_ms_code_key on dim_country c  (cost=0.15..8.17 rows=1 width=2) (actual time=0.041..0.042 rows=1.00 loops=1)
+                                 Index Cond: (ms_code = 'DE'::bpchar)
+                                 Index Searches: 1
+                                 Buffers: shared read=2
+               ->  Index Scan using dim_powertrain_pkey on dim_powertrain p  (cost=0.15..0.17 rows=1 width=34) (actual time=0.001..0.001 rows=1.00 loops=2772126)
+                     Index Cond: (powertrain_sk = f.powertrain_sk)
+                     Index Searches: 2772126
+                     Buffers: shared hit=5544250 read=2
+ Planning Time: 0.220 ms
+ Execution Time: 4898.036 ms
+(33 rows)
+
+Time: 4898,754 ms (00:04,899)
+
+>>> Im Plan A2 steht bei den Partitionen "(never executed)" bzw. es tauchen
+>>> nur fact_registration_2025 und _rest auf. Genau das ist der Beweis.
+
+############################################################
+# B ┬À Indizes ÔÇö vorher/nachher
+############################################################
+
+--- B1 ┬À VOR dem Index ----------------------------------------------------
+                                                                            QUERY PLAN                                                                             
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=91108.75..91108.77 rows=1 width=40) (actual time=1853.030..1853.032 rows=1.00 loops=1)
+   Buffers: shared hit=1 read=186678 written=813
+   ->  Hash Join  (cost=917.54..91107.94 rows=162 width=14) (actual time=435.743..1794.782 rows=715655.00 loops=1)
+         Hash Cond: (f.powertrain_sk = p.powertrain_sk)
+         Buffers: shared hit=1 read=186678 written=813
+         ->  Bitmap Heap Scan on fact_registration_2025 f  (cost=901.52..90989.04 rows=38850 width=16) (actual time=435.710..1399.252 rows=7769929.00 loops=1)
+               Recheck Cond: (jahr = 2025)
+               Heap Blocks: exact=156906
+               Buffers: shared read=186678 written=813
+               ->  Bitmap Index Scan on fact_registration_2025_pkey  (cost=0.00..891.81 rows=38850 width=0) (actual time=410.309..410.309 rows=7769929.00 loops=1)
+                     Index Cond: (jahr = 2025)
+                     Index Searches: 1
+                     Buffers: shared read=29772 written=205
+         ->  Hash  (cost=16.00..16.00 rows=2 width=2) (actual time=0.019..0.019 rows=3.00 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               Buffers: shared hit=1
+               ->  Seq Scan on dim_powertrain p  (cost=0.00..16.00 rows=2 width=2) (actual time=0.013..0.015 rows=3.00 loops=1)
+                     Filter: (antriebsklasse = 'PHEV'::text)
+                     Rows Removed by Filter: 18
+                     Buffers: shared hit=1
+ Planning Time: 0.169 ms
+ Execution Time: 1854.140 ms
+(22 rows)
+
+Time: 1854,772 ms (00:01,855)
+
+--- B2 ┬À Indizes anlegen --------------------------------------------------
+CREATE INDEX
+Time: 24861,714 ms (00:24,862)
+CREATE INDEX
+Time: 17463,171 ms (00:17,463)
+CREATE INDEX
+Time: 16777,609 ms (00:16,778)
+CREATE INDEX
+Time: 17516,988 ms (00:17,517)
+CREATE INDEX
+Time: 18289,899 ms (00:18,290)
+CREATE INDEX
+Time: 32148,112 ms (00:32,148)
+CREATE INDEX
+Time: 9780,428 ms (00:09,780)
+
+--- B3 ┬À Statistiken aktualisieren ----------------------------------------
+>>> Ohne ANALYZE w├ñhlt der Planner auf Basis veralteter Sch├ñtzungen Unsinn.
+ANALYZE
+Time: 3913,818 ms (00:03,914)
+ANALYZE
+Time: 0,528 ms
+ANALYZE
+Time: 0,523 ms
+ANALYZE
+Time: 3,488 ms
+ANALYZE
+Time: 26,110 ms
+ANALYZE
+Time: 12,956 ms
+
+--- B4 ┬À NACH dem Index (dieselbe Query wie B1) ---------------------------
+                                                                               QUERY PLAN                                                                                
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=189708.55..189708.57 rows=1 width=40) (actual time=480.845..484.314 rows=1.00 loops=1)
+   Buffers: shared hit=2027 read=154884
+   ->  Gather  (cost=189708.11..189708.52 rows=4 width=40) (actual time=480.397..484.301 rows=5.00 loops=1)
+         Workers Planned: 4
+         Workers Launched: 4
+         Buffers: shared hit=2027 read=154884
+         ->  Partial Aggregate  (cost=188708.11..188708.12 rows=1 width=40) (actual time=452.938..452.939 rows=1.00 loops=5)
+               Buffers: shared hit=2027 read=154884
+               ->  Hash Join  (cost=1.30..187320.44 rows=277534 width=4) (actual time=1.215..435.009 rows=143131.00 loops=5)
+                     Hash Cond: (f.powertrain_sk = p.powertrain_sk)
+                     Buffers: shared hit=2027 read=154884
+                     ->  Parallel Seq Scan on fact_registration_2025 f  (cost=0.00..181190.26 rows=1942741 width=6) (actual time=0.785..315.046 rows=1553985.80 loops=5)
+                           Filter: (jahr = 2025)
+                           Buffers: shared hit=2022 read=154884
+                     ->  Hash  (cost=1.26..1.26 rows=3 width=2) (actual time=0.404..0.405 rows=3.00 loops=5)
+                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                           Buffers: shared hit=5
+                           ->  Seq Scan on dim_powertrain p  (cost=0.00..1.26 rows=3 width=2) (actual time=0.391..0.393 rows=3.00 loops=5)
+                                 Filter: (antriebsklasse = 'PHEV'::text)
+                                 Rows Removed by Filter: 18
+                                 Buffers: shared hit=5
+ Planning:
+   Buffers: shared hit=243 read=11 dirtied=1
+ Planning Time: 8.398 ms
+ Execution Time: 484.357 ms
+(25 rows)
+
+Time: 493,114 ms
+
+--- B5 ┬À ├ûko-Innovation ├╝ber den GIN-Index (H5) ---------------------------
+                                                                                          QUERY PLAN                                                                                          
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=182218.38..182218.39 rows=1 width=8) (actual time=557.355..565.850 rows=1.00 loops=1)
+   Buffers: shared hit=386 read=154741 written=6929
+   ->  Gather  (cost=182217.96..182218.37 rows=4 width=8) (actual time=555.534..565.768 rows=5.00 loops=1)
+         Workers Planned: 4
+         Workers Launched: 4
+         Buffers: shared hit=386 read=154741 written=6929
+         ->  Partial Aggregate  (cost=181217.96..181217.97 rows=1 width=8) (actual time=487.912..487.912 rows=1.00 loops=5)
+               Buffers: shared hit=386 read=154741 written=6929
+               ->  Parallel Bitmap Heap Scan on fact_registration_2025 fact_registration  (cost=14763.07..179853.84 rows=545651 width=0) (actual time=96.230..468.453 rows=436934.20 loops=5)
+                     Recheck Cond: (oeko_codes @> '{29}'::text[])
+                     Filter: (jahr = 2025)
+                     Heap Blocks: exact=33627
+                     Buffers: shared hit=386 read=154741 written=6929
+                     Worker 0:  Heap Blocks: exact=30105
+                     Worker 1:  Heap Blocks: exact=29913
+                     Worker 2:  Heap Blocks: exact=30629
+                     Worker 3:  Heap Blocks: exact=30467
+                     ->  Bitmap Index Scan on fact_registration_2025_oeko_codes_idx  (cost=0.00..14217.42 rows=2182605 width=0) (actual time=136.941..136.941 rows=2184671.00 loops=1)
+                           Index Cond: (oeko_codes @> '{29}'::text[])
+                           Index Searches: 1
+                           Buffers: shared hit=306
+ Planning:
+   Buffers: shared hit=9 read=1
+ Planning Time: 0.562 ms
+ Execution Time: 565.884 ms
+(25 rows)
+
+Time: 569,936 ms
+
+############################################################
+# C ┬À Gr├Â├ƒen
+############################################################
+         objekt         |  tabelle   | indizes |   gesamt   
+------------------------+------------+---------+------------
+ registration           | 9866 MB    | 0 bytes | 9868 MB
+ fact_registration_2023 | 1247 MB    | 727 MB  | 1974 MB
+ fact_registration_2025 | 1226 MB    | 736 MB  | 1962 MB
+ fact_registration_2024 | 1209 MB    | 726 MB  | 1935 MB
+ fact_registration_2021 | 1128 MB    | 677 MB  | 1806 MB
+ fact_registration_2022 | 1116 MB    | 648 MB  | 1764 MB
+ co2cars_2023           | 1690 MB    | 0 bytes | 1691 MB
+ co2cars_2024           | 1683 MB    | 0 bytes | 1684 MB
+ co2cars_2025           | 1654 MB    | 0 bytes | 1655 MB
+ realworld              | 1526 MB    | 96 MB   | 1623 MB
+ co2cars_2021           | 1561 MB    | 0 bytes | 1561 MB
+ co2cars_2022           | 1544 MB    | 0 bytes | 1544 MB
+ obfcm_cars             | 1518 MB    | 0 bytes | 1519 MB
+ dim_model              | 1376 kB    | 976 kB  | 2392 kB
+ dim_date               | 352 kB     | 152 kB  | 544 kB
+ dim_manufacturer       | 56 kB      | 80 kB   | 168 kB
+ obfcm_cars_agg         | 56 kB      | 0 bytes | 96 kB
+ fact_registration_rest | 0 bytes    | 72 kB   | 80 kB
+ dim_powertrain         | 8192 bytes | 32 kB   | 48 kB
+ dim_country            | 8192 bytes | 32 kB   | 48 kB
+ oeko_code_liste        | 8192 bytes | 16 kB   | 32 kB
+ co2cars_hist_massen    | 0 bytes    | 0 bytes | 16 kB
+ co2cars_tabellen       | 0 bytes    | 0 bytes | 8192 bytes
+ fact_registration      | 0 bytes    | 0 bytes | 0 bytes
+(24 rows)
+
+Time: 410,246 ms
+
+>>> Fertig. Laufzeiten aus A1/A2 und B1/B4 ins LOGBUCH.md ├╝bertragen.

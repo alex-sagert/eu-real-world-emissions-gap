@@ -1,0 +1,196 @@
+﻿Timing is on.
+SET
+Time: 0,425 ms
+SET
+Time: 0,072 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/44_hersteller_luecke.sql:34: HINWEIS:  Tabelle ┬╗a7_hersteller_verbrenner┬½ existiert nicht, wird ├╝bersprungen
+DROP TABLE
+Time: 5,800 ms
+SELECT 25
+Time: 5111,277 ms (00:05,111)
+CREATE INDEX
+Time: 26,052 ms
+COMMENT
+Time: 24,091 ms
+
+=== A7a ┬À NAH AM VERSPRECHEN ÔÇö die zehn kleinsten Luecken =================
+>>> Nur reine Verbrenner. Gleiche Antriebsart, damit der Mix nicht verzerrt.
+        hersteller         | fahrzeuge | wltp_l | real_l | gap_median_pct | gap_p90_pct | masse_kg | leistung_kw 
+---------------------------+-----------+--------+--------+----------------+-------------+----------+-------------
+ MAZDA                     |      8198 |   6.90 |   7.63 |           11.4 |        26.5 |     1555 |         135
+ PORSCHE                   |     13407 |  11.00 |  12.31 |           11.5 |        33.1 |     1870 |         294
+ VOLVO                     |      4586 |   7.30 |   8.14 |           12.2 |        26.9 |     1625 |         120
+ AUDI SPORT                |      4258 |   9.90 |  10.90 |           13.1 |        40.8 |     1770 |         294
+ AUTOMOBILES PEUGEOT       |      6480 |   6.40 |   7.40 |           14.1 |        27.9 |     1682 |         106
+ VOLKSWAGEN                |    309329 |   6.00 |   6.81 |           14.3 |        30.5 |     1520 |         110
+ CHRYSLER                  |      3708 |   6.90 |   8.39 |           14.8 |        30.9 |     1395 |         110
+ JAGUAR LAND ROVER LIMITED |      6600 |   9.00 |  10.03 |           15.0 |        34.5 |     2094 |         184
+ MERCEDES-BENZ AG          |    148220 |   7.00 |   8.06 |           15.4 |        33.0 |     1835 |         140
+ KIA SLOVAKIA              |      3396 |   6.20 |   7.33 |           15.6 |        32.8 |     1407 |         118
+(10 rows)
+
+Time: 67,492 ms
+
+=== A7a ┬À WEIT DANEBEN ÔÇö die zehn groessten Luecken =======================
+        hersteller        | fahrzeuge | wltp_l | real_l | gap_median_pct | gap_p90_pct | masse_kg | leistung_kw 
+--------------------------+-----------+--------+--------+----------------+-------------+----------+-------------
+ BMW GMBH                 |      4866 |  10.70 |  13.46 |           24.5 |        55.7 |     1975 |         375
+ ALFA ROMEO               |      3730 |   8.10 |  10.21 |           22.9 |        40.7 |     1755 |         206
+ RENAULT                  |     64237 |   5.80 |   7.13 |           22.5 |        40.9 |     1280 |          67
+ DACIA                    |     31220 |   5.60 |   6.93 |           22.2 |        40.9 |     1181 |          67
+ FIAT GROUP               |      5748 |   6.80 |   8.12 |           21.0 |        38.5 |     1395 |         110
+ NISSAN AUTOMOTIVE EUROPE |      6543 |   6.20 |   7.35 |           19.8 |        37.4 |     1286 |          84
+ BMW AG                   |     69188 |   6.20 |   7.42 |           19.2 |        36.4 |     1565 |         115
+ STELLANTIS AUTO          |      9362 |   5.40 |   6.35 |           18.4 |        35.9 |     1280 |          96
+ STELLANTIS EUROPE        |      3507 |   6.80 |   7.92 |           18.1 |        35.4 |     1395 |         110
+ OPEL AUTOMOBILE          |     10305 |   5.40 |   6.42 |           17.4 |        33.5 |     1395 |          96
+(10 rows)
+
+Time: 0,926 ms
+
+=== A7a ┬À Vollstaendige Rangliste ========================================
+ platz |        hersteller         | fahrzeuge | wltp_l | real_l | gap_median_pct | masse_kg 
+-------+---------------------------+-----------+--------+--------+----------------+----------
+     1 | MAZDA                     |      8198 |   6.90 |   7.63 |           11.4 |     1555
+     2 | PORSCHE                   |     13407 |  11.00 |  12.31 |           11.5 |     1870
+     3 | VOLVO                     |      4586 |   7.30 |   8.14 |           12.2 |     1625
+     4 | AUDI SPORT                |      4258 |   9.90 |  10.90 |           13.1 |     1770
+     5 | AUTOMOBILES PEUGEOT       |      6480 |   6.40 |   7.40 |           14.1 |     1682
+     6 | VOLKSWAGEN                |    309329 |   6.00 |   6.81 |           14.3 |     1520
+     7 | CHRYSLER                  |      3708 |   6.90 |   8.39 |           14.8 |     1395
+     8 | JAGUAR LAND ROVER LIMITED |      6600 |   9.00 |  10.03 |           15.0 |     2094
+     9 | MERCEDES-BENZ AG          |    148220 |   7.00 |   8.06 |           15.4 |     1835
+    10 | KIA SLOVAKIA              |      3396 |   6.20 |   7.33 |           15.6 |     1407
+    11 | FORD WERKE GMBH           |     46445 |   6.30 |   7.24 |           15.9 |     1564
+    12 | AUDI AG                   |     29831 |   6.00 |   6.94 |           16.2 |     1495
+    13 | SKODA                     |    108810 |   5.60 |   6.59 |           16.8 |     1483
+    14 | PSA                       |     10038 |   5.40 |   6.39 |           16.9 |     1275
+    14 | SEAT                      |     51702 |   6.20 |   7.26 |           16.9 |     1491
+    16 | OPEL AUTOMOBILE           |     10305 |   5.40 |   6.42 |           17.4 |     1395
+    17 | STELLANTIS EUROPE         |      3507 |   6.80 |   7.92 |           18.1 |     1395
+    18 | STELLANTIS AUTO           |      9362 |   5.40 |   6.35 |           18.4 |     1280
+    19 | BMW AG                    |     69188 |   6.20 |   7.42 |           19.2 |     1565
+    20 | NISSAN AUTOMOTIVE EUROPE  |      6543 |   6.20 |   7.35 |           19.8 |     1286
+    21 | FIAT GROUP                |      5748 |   6.80 |   8.12 |           21.0 |     1395
+    22 | DACIA                     |     31220 |   5.60 |   6.93 |           22.2 |     1181
+    23 | RENAULT                   |     64237 |   5.80 |   7.13 |           22.5 |     1280
+    24 | ALFA ROMEO                |      3730 |   8.10 |  10.21 |           22.9 |     1755
+    25 | BMW GMBH                  |      4866 |  10.70 |  13.46 |           24.5 |     1975
+(25 rows)
+
+Time: 10,622 ms
+
+=== A7a ┬À Spannweite =====================================================
+>>> Wie gross ist der Abstand zwischen bestem und schlechtestem Hersteller?
+ hersteller | beste_luecke_pct | schlechteste_luecke_pct | spannweite_pp | mittel_pct | streuung_pp 
+------------+------------------+-------------------------+---------------+------------+-------------
+         25 |             11.4 |                    24.5 |          13.1 |       17.0 |         3.5
+(1 row)
+
+Time: 13,273 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/44_hersteller_luecke.sql:94: HINWEIS:  Tabelle ┬╗a7_hersteller_phev┬½ existiert nicht, wird ├╝bersprungen
+DROP TABLE
+Time: 10,893 ms
+SELECT 20
+Time: 2401,026 ms (00:02,401)
+COMMENT
+Time: 0,775 ms
+
+=== A7b ┬À Plug-in-Hybride je Hersteller ==================================
+>>> e_anteil_pct = tatsaechlich elektrisch gefahrener Anteil. Die WLTP-Regel
+>>> unterstellt rund 84 Prozent.
+        hersteller         | fahrzeuge | wltp_l | real_l | gap_median_pct | e_anteil_pct | e_reichweite_km | masse_kg 
+---------------------------+-----------+--------+--------+----------------+--------------+-----------------+----------
+ CHRYSLER                  |      2783 |   2.00 |   7.20 |          191.2 |         21.4 |              47 |     1845
+ FIAT GROUP                |      1333 |   1.90 |   6.00 |          212.2 |         36.0 |              48 |     1935
+ RENAULT                   |      3678 |   1.30 |   4.20 |          214.4 |         36.4 |              60 |     1616
+ FORD WERKE GMBH           |     25402 |   1.10 |   4.81 |          241.6 |         31.6 |              71 |     1844
+ KIA SLOVAKIA              |      2586 |   1.30 |   4.48 |          243.9 |         27.5 |              50 |     1614
+ STELLANTIS EUROPE         |      2894 |   1.90 |   7.20 |          278.1 |         23.2 |              49 |     1935
+ AUTOMOBILES PEUGEOT       |      2839 |   1.40 |   5.32 |          285.5 |         33.3 |              62 |     1838
+ SEAT                      |     11863 |   1.30 |   5.33 |          287.2 |         30.2 |              67 |     1699
+ TOYOTA                    |      2044 |   1.00 |   3.93 |          290.2 |         40.0 |              75 |     2005
+ OPEL AUTOMOBILE           |      3368 |   1.40 |   5.33 |          296.3 |         33.7 |              62 |     1810
+ PSA                       |      1011 |   1.40 |   5.83 |          297.4 |         28.7 |              60 |     1845
+ VOLKSWAGEN                |      7772 |   1.20 |   5.72 |          305.8 |         26.7 |              70 |     1627
+ BMW AG                    |     32007 |   1.70 |   6.89 |          310.7 |         29.0 |              55 |     1965
+ JAGUAR LAND ROVER LIMITED |      4268 |   2.00 |   8.38 |          336.5 |         17.4 |             110 |     2229
+ STELLANTIS AUTO           |      2863 |   1.20 |   5.54 |          346.0 |         28.5 |              63 |     1734
+ MERCEDES-BENZ AG          |     80428 |   1.20 |   6.08 |          347.9 |         23.4 |              66 |     2115
+ AUDI AG                   |      7947 |   1.30 |   6.35 |          375.2 |         23.1 |              72 |     2085
+ SKODA                     |      4228 |   1.10 |   5.77 |          385.1 |         29.6 |              71 |     1707
+ VOLVO                     |     14943 |   1.30 |   6.98 |          411.7 |         23.6 |              50 |     2075
+ MAZDA                     |      6679 |   1.50 |   7.83 |          423.0 |         30.2 |              63 |     2070
+(20 rows)
+
+Time: 1,256 ms
+
+=== A7b ┬À Erklaert die elektrische Reichweite den Unterschied? ===========
+>>> Wenn ja, muessten grosse Reichweiten mit kleinen Luecken einhergehen.
+ reichweitenklasse | hersteller | fahrzeuge | gap_pct | e_anteil_pct 
+-------------------+------------+-----------+---------+--------------
+ 45 bis 60 km      |          6 |     56546 |   274.6 |         26.8
+ ueber 60 km       |         14 |    164390 |   316.6 |         29.5
+(2 rows)
+
+Time: 6,559 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/44_hersteller_luecke.sql:141: HINWEIS:  Tabelle ┬╗a7_mixeffekt┬½ existiert nicht, wird ├╝bersprungen
+DROP TABLE
+Time: 0,249 ms
+SELECT 25
+Time: 3590,110 ms (00:03,590)
+COMMENT
+Time: 0,621 ms
+
+=== A7c ┬À Der Mixeffekt ÔÇö warum die naive Rangliste taeuscht =============
+>>> gap_gesamt = ueber die ganze Flotte  ┬À  gap_nur_verbrenner = fair
+>>> mixeffekt_pp = Aufschlag allein durch den Plug-in-Hybrid-Anteil.
+        hersteller         | fahrzeuge_gesamt | phev_anteil_pct | gap_gesamt_pct | gap_nur_verbrenner_pct | mixeffekt_pp 
+---------------------------+------------------+-----------------+----------------+------------------------+--------------
+ MAZDA                     |            20395 |            32.7 |           22.7 |                   11.4 |         11.3
+ CHRYSLER                  |             6826 |            40.8 |           25.2 |                   14.8 |         10.4
+ VOLVO                     |            44554 |            33.5 |           22.0 |                   12.2 |          9.8
+ STELLANTIS EUROPE         |            13686 |            21.1 |           27.9 |                   18.1 |          9.8
+ KIA SLOVAKIA              |             7656 |            33.8 |           23.2 |                   15.6 |          7.6
+ MERCEDES-BENZ AG          |           300423 |            26.8 |           22.8 |                   15.4 |          7.4
+ AUTOMOBILES PEUGEOT       |             9320 |            30.5 |           19.6 |                   14.1 |          5.5
+ JAGUAR LAND ROVER LIMITED |            19643 |            21.7 |           20.4 |                   15.0 |          5.4
+ BMW AG                    |           183017 |            17.5 |           24.0 |                   19.2 |          4.8
+ OPEL AUTOMOBILE           |            13673 |            24.6 |           22.0 |                   17.4 |          4.6
+ STELLANTIS AUTO           |            12225 |            23.4 |           22.9 |                   18.4 |          4.5
+ FORD WERKE GMBH           |           106857 |            23.8 |           19.1 |                   15.9 |          3.2
+ SEAT                      |            66543 |            17.8 |           19.8 |                   16.9 |          2.9
+ RENAULT                   |            99382 |             3.7 |           24.8 |                   22.5 |          2.3
+ AUDI SPORT                |             6156 |             0.0 |           15.3 |                   13.1 |          2.2
+ PSA                       |            11049 |             9.2 |           18.3 |                   16.9 |          1.4
+ AUDI AG                   |            96831 |             8.2 |           17.4 |                   16.2 |          1.2
+ NISSAN AUTOMOTIVE EUROPE  |            15014 |             0.0 |           20.8 |                   19.8 |          1.0
+ ALFA ROMEO                |             4817 |             4.9 |           23.8 |                   22.9 |          0.9
+ PORSCHE                   |            14053 |             4.6 |           12.3 |                   11.5 |          0.8
+ FIAT GROUP                |            15076 |             8.8 |           21.7 |                   21.0 |          0.7
+ SKODA                     |           115240 |             3.7 |           17.3 |                   16.8 |          0.5
+ VOLKSWAGEN                |           325640 |             2.4 |           14.6 |                   14.3 |          0.3
+ DACIA                     |            31687 |             0.0 |           22.3 |                   22.2 |          0.1
+ BMW GMBH                  |             4866 |             0.0 |           24.5 |                   24.5 |          0.0
+(25 rows)
+
+Time: 1,538 ms
+
+=== A7c ┬À Kontrolle: haengt der Mixeffekt am PHEV-Anteil? ================
+>>> Ein hoher Zusammenhang bestaetigt, dass die naive Rangliste den
+>>> Antriebsmix misst und nicht die Motorentechnik.
+ korrelation | hersteller 
+-------------+------------
+       0.890 |         25
+(1 row)
+
+Time: 1,909 ms
+ANALYZE
+Time: 28,945 ms
+ANALYZE
+Time: 4,097 ms
+ANALYZE
+Time: 1,365 ms
+
+>>> Fuer die Folie: A7a ist die Rangliste, die zaehlt. A7c ist die
+>>> Begruendung, warum man sie so und nicht anders rechnen muss.

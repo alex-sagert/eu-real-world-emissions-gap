@@ -1,0 +1,62 @@
+# -----------------------------------------------------------------------------
+# Rohdaten
+#
+# 01_daten/raw enthaelt rund 8,2 GB CSV. Sie gehoeren nicht ins Repository und
+# sind vollstaendig aus 03_skripte reproduzierbar. Ausgenommen sind die kleinen
+# Referenz- und Protokolldateien, die den Ladelauf belegen.
+# -----------------------------------------------------------------------------
+01_daten/raw/**
+01_daten/interim/**
+!01_daten/raw/.gitkeep
+!01_daten/interim/.gitkeep
+!01_daten/raw/_co2cars_tabellen.csv
+!01_daten/raw/_download_co2cars_log.csv
+
+# Referenztabellen sind klein und gehoeren dazu
+!01_daten/referenz/**
+
+# -----------------------------------------------------------------------------
+# Arbeitsstaende, die nicht veroeffentlicht werden
+# -----------------------------------------------------------------------------
+_archiv/
+*.state
+*.sauber
+
+# -----------------------------------------------------------------------------
+# Python
+# -----------------------------------------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# -----------------------------------------------------------------------------
+# Zugangsdaten - niemals einchecken
+# -----------------------------------------------------------------------------
+.env
+*.pgpass
+pgpass.conf
+secrets.toml
+.streamlit/secrets.toml
+
+# -----------------------------------------------------------------------------
+# KNIME
+# -----------------------------------------------------------------------------
+04_knime/**/tmp/
+04_knime/_bau*/
+*.knimeLock
+
+# -----------------------------------------------------------------------------
+# Office-Sperrdateien und temporaere Kopien
+# -----------------------------------------------------------------------------
+~$*
+.~lock.*#
+*.tmp
+
+# -----------------------------------------------------------------------------
+# Betriebssystem
+# -----------------------------------------------------------------------------
+Thumbs.db
+desktop.ini
+.DS_Store

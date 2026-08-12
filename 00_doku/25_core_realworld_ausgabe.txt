@@ -1,0 +1,88 @@
+﻿Timing is on.
+SET
+Time: 0,101 ms
+SET
+Time: 0,059 ms
+SET
+Time: 0,068 ms
+SET
+Time: 0,051 ms
+DROP TABLE
+Time: 40,242 ms
+CREATE TABLE
+Time: 33,519 ms
+COMMENT
+Time: 1,010 ms
+INSERT 0 7791120
+Time: 275948,282 ms (04:35,948)
+INSERT 0 3
+Time: 6277,529 ms (00:06,278)
+INSERT 0 1
+Time: 1206,581 ms (00:01,207)
+CREATE INDEX
+Time: 8215,390 ms (00:08,215)
+CREATE INDEX
+Time: 5809,439 ms (00:05,809)
+ANALYZE
+Time: 487,276 ms
+
+--- Zeilen, Filterwirkung -------------------------------------------------
+ zeilen_gesamt | eea_verwendbar | plus_mindestlauf | auswertbar 
+---------------+----------------+------------------+------------
+       7791120 |        6515134 |          6443820 |    5891869
+(1 row)
+
+Time: 502,652 ms
+
+--- Meldewege und Zulassungsjahre ----------------------------------------
+ data_source | jahr |    n    
+-------------+------+---------
+ OEM         | 2021 | 2918261
+ OEM         | 2022 | 2751830
+ OEM         | 2023 | 2121029
+(3 rows)
+
+Time: 513,060 ms
+
+--- Top-Laender -----------------------------------------------------------
+ land |    n    
+------+---------
+ DE   | 1977119
+ FR   | 1462653
+ IT   | 1247416
+ ES   |  670207
+ PL   |  366549
+ BE   |  349802
+ AT   |  217967
+ SE   |  212123
+ NL   |  196186
+ CZ   |  158113
+(10 rows)
+
+Time: 422,328 ms
+
+--- Antriebsklassen -------------------------------------------------------
+ antriebsklasse |    n    | mit_luecke 
+----------------+---------+------------
+ ICE_BENZIN     | 2654257 |    2436017
+ HEV            | 2436214 |    2261924
+ ICE_DIESEL     | 1635660 |    1535256
+ PHEV           | 1027156 |     834249
+ BIFUEL         |   27442 |      26103
+ FLEX           |    9912 |       9891
+ BEV            |     442 |          0
+ ICE_SONSTIGE   |      37 |         35
+(8 rows)
+
+Time: 692,245 ms
+
+--- Neue Befunde ----------------------------------------------------------
+  objekt   |    spalte     |                          pruefung                          | ergebnis | einheit |                                                                                kommentar                                                                                
+-----------+---------------+------------------------------------------------------------+----------+---------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ realworld | dist_total_km | Lebensdauerstrecke ueber 1 Mio. km (unmoeglich)            |      985 | Zeilen  | Groesster Wert 429496740 km. Der Bordzaehler liefert offensichtlich fehlerhafte Einzelwerte; deshalb tragen alle Messspalten in core.realworld keine Stellenbegrenzung.
+ realworld | fc_real       | Realverbrauch ueber 100 l/100 km (physikalisch unmoeglich) |     4272 | Zeilen  | Groesster Wert 604924972 l/100 km bei 0.1 km Lebensdauerstrecke. Entsteht rechnerisch bei Kleinstlaufleistung, deshalb Mindestlaufleistung 1000 km.
+ realworld | gap_pct       | Prozentuale Luecke ueber 5000 Prozent                      |     7366 | Zeilen  | Entsteht bei sehr kleinem WLTP-Wert im Nenner (PHEV ab 0,9 l) und kurzer Strecke im Zaehler
+ realworld | used_in_calc  | Von der EEA als nicht verwendbar markiert                  |  1275986 | Zeilen  | Plausibilitaetspruefung der EEA wird uebernommen, Anteil wird im NvS genannt
+(4 rows)
+
+Time: 1,421 ms

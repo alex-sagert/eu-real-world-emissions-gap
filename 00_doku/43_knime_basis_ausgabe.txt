@@ -1,0 +1,52 @@
+﻿Timing is on.
+SET
+Time: 0,102 ms
+
+=== Was kosten die Vollstaendigkeitsfilter? (alle Antriebe) ===============
+ grundgesamtheit | nach_ausreissergrenze | trainingsbasis | anteil_prozent 
+-----------------+-----------------------+----------------+----------------
+         5891869 |               5865872 |        5857803 |          99.42
+(1 row)
+
+Time: 2372,565 ms (00:02,373)
+
+=== Welche Spalte kostet wie viel? =======================================
+>>> Je Merkmal die Zahl der Saetze, die allein daran scheitern.
+             merkmal             | fehlend 
+---------------------------------+---------
+ e_reichweite_km (auf 0 gesetzt) | 5215591
+ leistung_kw                     |    8070
+ hubraum_cm3 (auf 0 gesetzt)     |     124
+ masse_kg                        |       0
+ fc_wltp                         |       0
+ dist_total_km                   |       0
+ co2_wltp                        |       0
+(7 rows)
+
+Time: 4748,985 ms (00:04,749)
+
+=== Verzerrt der Ausschluss die Stichprobe? ==============================
+>>> Antriebsmix vor und nach dem Filter. Grosse Verschiebungen waeren
+>>> ein Grund, den Filter zu verwerfen statt ihn nur zu dokumentieren.
+ antriebsklasse | vorher  | nachher | anteil_vorher_pct | anteil_nachher_pct 
+----------------+---------+---------+-------------------+--------------------
+ ICE_BENZIN     | 1995669 | 1992630 |             34.02 |              34.02
+ HEV            | 1825966 | 1822692 |             31.13 |              31.12
+ ICE_DIESEL     | 1372377 | 1370880 |             23.40 |              23.40
+ PHEV           |  671860 |  671601 |             11.45 |              11.47
+(4 rows)
+
+Time: 2067,594 ms (00:02,068)
+
+=== Dasselbe fuer die PHEV-Teilmenge =====================================
+>>> Hier wiegt der Filter schwerer: anteil_elektrisch und grid_kwh werden
+>>> VERLANGT, nicht ersetzt. Sie sind die Erklaergroessen der Luecke -
+>>> ein Ersatzwert wuerde genau die Frage beantworten, um die es geht.
+ phev_gesamt | nach_ausreissergrenze | ohne_e_anteil | ohne_netzstrom | trainingsbasis 
+-------------+-----------------------+---------------+----------------+----------------
+      696649 |                684601 |          3400 |           7474 |         674863
+(1 row)
+
+Time: 454,719 ms
+
+>>> Diese Zahlen gehoeren in das Kapitel Datenaufbereitung des NvS.

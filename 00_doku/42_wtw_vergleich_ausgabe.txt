@@ -1,0 +1,107 @@
+﻿Timing is on.
+SET
+Time: 0,168 ms
+SET
+Time: 0,143 ms
+SET
+Time: 0,142 ms
+SET
+Time: 0,147 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/42_wtw_vergleich.sql:57: HINWEIS:  Eingangskontrolle bestanden: 43753 Stundenwerte im Strommix.
+DO
+Time: 19,119 ms
+DROP TABLE
+Time: 11,494 ms
+CREATE TABLE
+Time: 12,318 ms
+INSERT 0 7
+Time: 1,570 ms
+COMMENT
+Time: 0,784 ms
+
+=== Gegenprobe: welchen Faktor verwendet die EEA selbst? ==================
+>>> Quotient aus CO2 (g/km) und Verbrauch (l/100 km), mal 100.
+   kraftstoff    | gruppen | faktor_aus_obfcm | faktor_aus_wltp 
+-----------------+---------+------------------+-----------------
+ DIESEL          |      57 |             2631 |            2631
+ DIESEL/ELECTRIC |       3 |             2631 |            2637
+ PETROL          |      94 |             2278 |            2278
+ PETROL/ELECTRIC |      56 |             2278 |            2278
+(4 rows)
+
+Time: 5,230 ms
+DROP TABLE
+Time: 3,791 ms
+CREATE TABLE
+Time: 3,197 ms
+INSERT 0 3
+Time: 1,073 ms
+DROP TABLE
+Time: 3,413 ms
+SELECT 15
+Time: 22557,309 ms (00:22,557)
+COMMENT
+Time: 1,461 ms
+
+=== H2 ┬À Der faire Vergleich (Szenario mittel, BEV +15 %) =================
+>>> co2_offiziell    = WLTP-Typpruefwert, das Papier
+>>> co2_auspuff_real = gemessener Kraftstoff, mal Emissionsfaktor
+>>> co2_strom_*      = Netzstrom mit dem realen deutschen Mix bewertet
+ antriebsklasse | fahrzeuge |  quelle_real   | ft_haeufigster  | faktor_g_je_l | masse_kg | co2_offiziell | co2_auspuff_real | co2_strom | co2_wtw_gesamt | differenz_zum_papier | abweichung_prozent 
+----------------+-----------+----------------+-----------------+---------------+----------+---------------+------------------+-----------+----------------+----------------------+--------------------
+ BEV            |   2246058 | WLTP Laborwert | electric        |               |     1949 |           0.0 |              0.0 |      66.7 |           66.7 |                 66.7 |                   
+ PHEV           |    281793 | OBFCM gemessen | petrol/electric |        2317.6 |     1868 |          31.0 |            138.9 |      21.9 |          160.8 |                129.8 |                419
+ ICE_BENZIN     |    589683 | OBFCM gemessen | petrol          |        2278.0 |     1375 |         144.0 |            169.4 |       0.0 |          169.4 |                 25.4 |                 18
+ HEV            |    416430 | OBFCM gemessen | petrol          |        2426.8 |     1705 |         141.0 |            171.4 |       0.0 |          171.4 |                 30.4 |                 22
+ ICE_DIESEL     |    427780 | OBFCM gemessen | diesel          |        2631.0 |     1650 |         146.0 |            173.3 |       0.0 |          173.3 |                 27.3 |                 19
+(5 rows)
+
+Time: 12,908 ms
+
+>>> ACHTUNG bei der Auslegung: Die BEV-Zeile stammt aus der WLTP-Typpruefung,
+>>> alle anderen Zeilen aus gemessenem Realverbrauch. Die Spalte quelle_real
+>>> haelt das fest. OBFCM misst Kraftstoff - ein Batterieauto hat keinen
+>>> Kraftstoffmesser und ist in dieser Quelle deshalb nicht enthalten.
+
+=== H2 ┬À Haengt das Ergebnis an der BEV-Annahme? ==========================
+ bev_szenario | bev  | phev  | benzin_rein | diesel_rein | hybrid 
+--------------+------+-------+-------------+-------------+--------
+ konservativ  | 75.4 | 160.8 |       169.4 |       173.3 |  171.4
+ mittel       | 66.7 | 160.8 |       169.4 |       173.3 |  171.4
+ optimistisch | 58.0 | 160.8 |       169.4 |       173.3 |  171.4
+(3 rows)
+
+Time: 1,781 ms
+
+=== H2 ┬À Ab welchem Strommix kippt der PHEV hinter den Benziner? ==========
+>>> Sensitivitaet: PHEV-Gesamtemission bei verschiedenen Strommix-Werten,
+>>> gegen den festen Auspuffwert des reinen Benziners.
+ strommix_g_kwh | phev_auspuff | phev_strom | phev_gesamt | benzin_rein |    ergebnis     
+----------------+--------------+------------+-------------+-------------+-----------------
+            0.0 |        138.9 |        0.0 |       138.9 |       169.4 | PHEV besser
+          100.0 |        138.9 |        6.2 |       145.1 |       169.4 | PHEV besser
+          200.0 |        138.9 |       12.4 |       151.3 |       169.4 | PHEV besser
+          300.0 |        138.9 |       18.6 |       157.5 |       169.4 | PHEV besser
+          350.0 |        138.9 |       21.7 |       160.6 |       169.4 | PHEV besser
+          400.0 |        138.9 |       24.8 |       163.7 |       169.4 | PHEV besser
+          450.0 |        138.9 |       27.9 |       166.8 |       169.4 | PHEV besser
+          500.0 |        138.9 |       31.0 |       169.9 |       169.4 | PHEV schlechter
+          600.0 |        138.9 |       37.2 |       176.1 |       169.4 | PHEV schlechter
+(9 rows)
+
+Time: 1,074 ms
+
+=== Kontrolle: stimmen Haupttabelle und Sensitivitaet ueberein? ===========
+>>> Der Auspuffwert des PHEV muss in beiden Rechnungen identisch sein.
+>>> Der Strommix-Jahresmittelwert muss zwischen 300 und 450 g/kWh liegen.
+ verwendeter_mix_g_kwh | phev_auspuff_haupttabelle | bewertung_mix 
+-----------------------+---------------------------+---------------
+                 355.6 |                     138.9 | plausibel
+(1 row)
+
+Time: 3,231 ms
+ANALYZE
+Time: 14,883 ms
+
+>>> Ergebnis in 00_doku/06_Ergebnis_Realverbrauchsluecke.md nachtragen und
+>>> H2 abschliessend bewerten.

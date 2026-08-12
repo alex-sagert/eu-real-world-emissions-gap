@@ -1,0 +1,217 @@
+﻿Timing is on.
+SET
+Time: 0,148 ms
+SET
+Time: 0,058 ms
+SET
+Time: 0,051 ms
+SET
+Time: 0,046 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/40_analysen_A1_A6.sql:47: HINWEIS:  Tabelle ┬╗a1_antriebsmix┬½ existiert nicht, wird ├╝bersprungen
+DROP TABLE
+Time: 5,205 ms
+SELECT 242
+Time: 7936,089 ms (00:07,936)
+CREATE INDEX
+Time: 1,852 ms
+COMMENT
+Time: 2,425 ms
+
+=== A1 ┬À Elektrifizierung Deutschland gegen Norwegen ======================
+ jahr | ms_code |   antrieb_label    | zulassungen | anteil_prozent | delta_prozentpunkte 
+------+---------+--------------------+-------------+----------------+---------------------
+ 2021 | DE      | Batterieelektrisch |      355548 |         14.053 |                    
+ 2022 | DE      | Batterieelektrisch |      469947 |         18.279 |               4.226
+ 2023 | DE      | Batterieelektrisch |      523617 |         18.937 |               0.658
+ 2024 | DE      | Batterieelektrisch |      380091 |         13.932 |              -5.005
+ 2025 | DE      | Batterieelektrisch |      544547 |         19.644 |               5.712
+ 2021 | NO      | Batterieelektrisch |      113446 |         64.512 |                    
+ 2022 | NO      | Batterieelektrisch |      138162 |         79.355 |              14.843
+ 2023 | NO      | Batterieelektrisch |      104579 |         82.391 |               3.036
+ 2024 | NO      | Batterieelektrisch |      114398 |         88.955 |               6.564
+ 2025 | NO      | Batterieelektrisch |      172239 |         96.012 |               7.057
+ 2021 | DE      | Benzin (rein)      |      993054 |         39.251 |                    
+ 2022 | DE      | Benzin (rein)      |      858696 |         33.399 |              -5.852
+ 2023 | DE      | Benzin (rein)      |      975886 |         35.293 |               1.894
+ 2024 | DE      | Benzin (rein)      |      988234 |         36.223 |               0.930
+ 2025 | DE      | Benzin (rein)      |      775675 |         27.981 |              -8.242
+ 2021 | NO      | Benzin (rein)      |        3699 |          2.103 |                    
+ 2022 | NO      | Benzin (rein)      |        2235 |          1.284 |              -0.819
+ 2023 | NO      | Benzin (rein)      |         809 |          0.637 |              -0.647
+ 2024 | NO      | Benzin (rein)      |         313 |          0.243 |              -0.394
+ 2025 | NO      | Benzin (rein)      |         167 |          0.093 |              -0.150
+ 2021 | DE      | Diesel (rein)      |      446326 |         17.641 |                    
+ 2022 | DE      | Diesel (rein)      |      398740 |         15.509 |              -2.132
+ 2023 | DE      | Diesel (rein)      |      411101 |         14.867 |              -0.642
+ 2024 | DE      | Diesel (rein)      |      399830 |         14.656 |              -0.211
+ 2025 | DE      | Diesel (rein)      |      313178 |         11.297 |              -3.359
+ 2021 | NO      | Diesel (rein)      |        6188 |          3.519 |                    
+ 2022 | NO      | Diesel (rein)      |        4683 |          2.690 |              -0.829
+ 2023 | NO      | Diesel (rein)      |        2838 |          2.236 |              -0.454
+ 2024 | NO      | Diesel (rein)      |        2695 |          2.096 |              -0.140
+ 2025 | NO      | Diesel (rein)      |        1503 |          0.838 |              -1.258
+ 2021 | DE      | Plug-in-Hybrid     |      325034 |         12.847 |                    
+ 2022 | DE      | Plug-in-Hybrid     |      361431 |         14.058 |               1.211
+ 2023 | DE      | Plug-in-Hybrid     |      175417 |          6.344 |              -7.714
+ 2024 | DE      | Plug-in-Hybrid     |      191769 |          7.029 |               0.685
+ 2025 | DE      | Plug-in-Hybrid     |      311381 |         11.233 |               4.204
+ 2021 | NO      | Plug-in-Hybrid     |       38168 |         21.705 |                    
+ 2022 | NO      | Plug-in-Hybrid     |       16125 |          9.262 |             -12.443
+ 2023 | NO      | Plug-in-Hybrid     |       10172 |          8.014 |              -1.248
+ 2024 | NO      | Plug-in-Hybrid     |        3489 |          2.713 |              -5.301
+ 2025 | NO      | Plug-in-Hybrid     |        2754 |          1.535 |              -1.178
+(40 rows)
+
+Time: 1,533 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/40_analysen_A1_A6.sql:107: HINWEIS:  Tabelle ┬╗a2_de_vs_eu┬½ existiert nicht, wird ├╝bersprungen
+DROP TABLE
+Time: 0,161 ms
+SELECT 49
+Time: 4,439 ms
+COMMENT
+Time: 0,317 ms
+
+=== A2 ┬À Deutschland gegen Vergleichsgruppe (Prozentpunkte) ===============
+ jahr | antriebsklasse | anteil_de | anteil_ref | delta_prozentpunkte | delta_co2_g_km 
+------+----------------+-----------+------------+---------------------+----------------
+ 2021 | BEV            |    14.053 |     10.992 |               3.061 |            0.0
+ 2022 | BEV            |    18.279 |     14.127 |               4.152 |            0.0
+ 2023 | BEV            |    18.937 |     15.172 |               3.765 |            0.0
+ 2024 | BEV            |    13.932 |     13.724 |               0.208 |            0.0
+ 2025 | BEV            |    19.644 |     18.198 |               1.446 |            0.0
+ 2021 | HEV            |    15.634 |     18.635 |              -3.001 |           16.0
+ 2022 | HEV            |    18.069 |     23.289 |              -5.220 |           17.2
+ 2023 | HEV            |    24.025 |     27.166 |              -3.141 |           16.4
+ 2024 | HEV            |    27.644 |     32.618 |              -4.974 |           16.3
+ 2025 | HEV            |    29.408 |     36.352 |              -6.944 |           15.5
+ 2021 | ICE_BENZIN     |    39.251 |     38.451 |               0.800 |            9.6
+ 2022 | ICE_BENZIN     |    33.399 |     33.639 |              -0.240 |           11.1
+ 2023 | ICE_BENZIN     |    35.293 |     34.330 |               0.963 |           11.0
+ 2024 | ICE_BENZIN     |    36.223 |     32.098 |               4.125 |            9.2
+ 2025 | ICE_BENZIN     |    27.981 |     24.392 |               3.589 |            8.8
+ 2021 | ICE_DIESEL     |    17.641 |     19.973 |              -2.332 |           14.0
+ 2022 | ICE_DIESEL     |    15.509 |     16.199 |              -0.690 |           13.3
+ 2023 | ICE_DIESEL     |    14.867 |     13.302 |               1.565 |            9.6
+ 2024 | ICE_DIESEL     |    14.656 |     11.591 |               3.065 |            6.0
+ 2025 | ICE_DIESEL     |    11.297 |      8.371 |               2.926 |            6.6
+ 2021 | PHEV           |    12.847 |      9.066 |               3.781 |           -0.7
+ 2022 | PHEV           |    14.058 |      9.593 |               4.465 |           -0.7
+ 2023 | PHEV           |     6.344 |      6.894 |              -0.550 |            0.1
+ 2024 | PHEV           |     7.029 |      6.622 |               0.407 |            0.3
+ 2025 | PHEV           |    11.233 |      9.211 |               2.022 |            1.4
+(25 rows)
+
+Time: 1,233 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/40_analysen_A1_A6.sql:156: HINWEIS:  Tabelle ┬╗ziel_parameter┬½ existiert nicht, wird ├╝bersprungen
+DROP TABLE
+Time: 0,347 ms
+CREATE TABLE
+Time: 10,113 ms
+COMMENT
+Time: 0,130 ms
+INSERT 0 5
+Time: 1,992 ms
+CREATE FUNCTION
+Time: 25,189 ms
+COMMENT
+Time: 0,127 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/40_analysen_A1_A6.sql:182: HINWEIS:  Tabelle ┬╗a3_flottenziele┬½ existiert nicht, wird ├╝bersprungen
+DROP TABLE
+Time: 0,117 ms
+SELECT 134
+Time: 26712,711 ms (00:26,713)
+COMMENT
+Time: 0,295 ms
+
+=== A3 ┬À Zielerreichung 2025, groesste Abrechnungseinheiten ===============
+>>> ACHTUNG: flottenziel_naeherung ist eine dokumentierte Naeherung,
+>>> siehe star.ziel_parameter. Nicht als amtlicher Zielwert zitieren.
+               hersteller_gruppe               | ist_gepoolt | zulassungen | flottenmittel_vor_oeko | flottenmittel_nach_oeko | flottenziel_naeherung | abweichung_g_km | abweichung_ohne_oeko_g_km | anteil_bev_prozent | anteil_phev_prozent | anteil_oeko_prozent 
+-----------------------------------------------+-------------+-------------+------------------------+-------------------------+-----------------------+-----------------+---------------------------+--------------------+---------------------+---------------------
+ TESLA                                         | t           |     1116869 |                  90.50 |                   89.87 |                 94.68 |           -4.81 |                     -4.18 |              17.87 |                8.76 |               55.42
+ STELLANTIS AUTO                               | f           |     1002675 |                 100.77 |                   99.39 |                 90.67 |            8.72 |                     10.10 |              14.26 |                2.65 |               77.04
+ VOLKSWAGEN                                    | f           |      910381 |                 101.84 |                  101.12 |                 98.48 |            2.64 |                      3.36 |              17.04 |               10.65 |               56.33
+ MERCEDES-BENZ, VOLVO CARS, POLESTAR AND SMART | t           |      567963 |                  97.54 |                   97.06 |                111.05 |          -13.99 |                    -13.51 |              20.75 |               22.66 |               33.34
+ BMW                                           | t           |      558438 |                  95.27 |                   94.03 |                105.84 |          -11.81 |                    -10.57 |              24.42 |               13.57 |               60.71
+ RENAULT                                       | f           |      503127 |                 102.44 |                  101.29 |                 91.25 |           10.04 |                     11.19 |               7.10 |                1.57 |               91.32
+ SKODA                                         | f           |      394935 |                  93.43 |                   92.35 |                 97.32 |           -4.97 |                     -3.89 |              22.69 |                6.01 |               63.33
+ DACIA                                         | f           |      383142 |                 112.98 |                  111.51 |                 86.04 |           25.47 |                     26.94 |               4.21 |                0.00 |               95.42
+ AUDI AG                                       | f           |      371836 |                 105.44 |                  104.70 |                105.22 |           -0.52 |                      0.22 |              19.83 |               13.78 |               44.17
+ SEAT                                          | f           |      334748 |                  94.54 |                   93.41 |                 94.49 |           -1.08 |                      0.05 |              13.51 |               17.58 |               65.42
+ STELLANTIS EUROPE                             | f           |      283092 |                 101.01 |                   99.73 |                 85.01 |           14.72 |                     16.00 |              11.68 |                1.00 |               81.12
+ HYUNDAI MOTOR EUROPE                          | t           |      280186 |                  96.96 |                   96.94 |                 92.60 |            4.34 |                      4.36 |              18.90 |                5.80 |                1.63
+ NISSAN-BYD                                    | t           |      223569 |                  78.17 |                   77.50 |                101.12 |          -23.62 |                    -22.95 |              23.27 |               19.88 |               54.25
+ SAIC MOTOR CORPORATION                        | f           |      165041 |                  96.81 |                   96.81 |                 93.57 |            3.24 |                      3.24 |              13.81 |               10.32 |                0.00
+ KIA                                           | f           |      146614 |                  79.41 |                   79.32 |                 92.06 |          -12.74 |                    -12.65 |              31.19 |                2.05 |                7.62
+ KIA SLOVAKIA                                  | f           |       93596 |                 128.64 |                  128.61 |                 95.97 |           32.64 |                     32.67 |               2.17 |                4.46 |                2.01
+ AMPERE                                        | f           |       73867 |                   0.00 |                    0.00 |                 92.97 |          -92.97 |                    -92.97 |             100.00 |                0.00 |                0.00
+ PORSCHE                                       | f           |       47113 |                 119.81 |                  119.52 |                116.17 |            3.35 |                      3.64 |              35.71 |               22.80 |               28.33
+ CHERY                                         | f           |       34667 |                 111.55 |                  111.55 |                 99.48 |           12.07 |                     12.07 |               4.01 |               30.78 |                0.00
+ JAGUAR LAND ROVER LIMITED                     | f           |       27611 |                 143.25 |                  142.83 |                125.37 |           17.46 |                     17.88 |               0.16 |               37.75 |               32.25
+ DR AUTOMOBILES                                | f           |       26143 |                 160.82 |                  160.82 |                 92.08 |           68.74 |                     68.74 |               0.01 |                1.09 |                0.00
+ KG MOBILITY XPENG                             | t           |       20932 |                  62.45 |                   62.45 |                111.07 |          -48.62 |                    -48.62 |              65.02 |                0.00 |                0.00
+ MAZDA                                         | t           |       18236 |                 106.11 |                  105.58 |                 96.15 |            9.43 |                      9.96 |              21.90 |                0.00 |               78.10
+ EBRO SUV                                      | f           |       12459 |                 111.56 |                  111.56 |                 99.75 |           11.81 |                     11.81 |               0.00 |               32.10 |                0.00
+ AUDI SPORT                                    | f           |       11223 |                 248.65 |                  248.65 |                109.07 |          139.58 |                    139.58 |               0.00 |                0.00 |                0.00
+ GEELY                                         | f           |        9509 |                  13.18 |                   13.18 |                113.12 |          -99.94 |                    -99.94 |              39.79 |               60.21 |                0.00
+ MITSUBISHI MOTORS THAILAND                    | f           |        8014 |                 114.94 |                  114.16 |                 75.48 |           38.68 |                     39.46 |               0.00 |                0.00 |               99.75
+ MITSUBISHI MOTORS CORPORATION                 | f           |        6897 |                  28.43 |                   28.43 |                116.62 |          -88.19 |                    -88.19 |               0.00 |              100.00 |                0.00
+ FERRARI                                       | f           |        3150 |                 257.71 |                  257.71 |                107.51 |          150.20 |                    150.20 |               0.00 |               44.54 |                0.00
+ AA-IVA                                        | f           |        2897 |                 118.34 |                  118.26 |                120.17 |           -1.91 |                     -1.83 |              44.01 |                5.45 |                7.59
+(30 rows)
+
+Time: 0,910 ms
+
+=== A3b ┬À Wie viele Einheiten kippen ohne Oeko-Gutschrift? (H5) ===========
+>>> nur_dank_oeko = Ziel mit Gutschrift erreicht, ohne Gutschrift verfehlt.
+ jahr | einheiten | ziel_erreicht | ziel_verfehlt | nur_dank_oeko | ziel_erreicht_im_pool 
+------+-----------+---------------+---------------+---------------+-----------------------
+ 2021 |        18 |            14 |             4 |             0 |                    10
+ 2022 |        23 |            19 |             4 |             0 |                    10
+ 2023 |        28 |            22 |             6 |             0 |                    11
+ 2024 |        25 |            20 |             5 |             0 |                    11
+ 2025 |        40 |            16 |            24 |             2 |                     5
+(5 rows)
+
+Time: 0,383 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/40_analysen_A1_A6.sql:253: HINWEIS:  Tabelle ┬╗a6_gewichtsspirale┬½ existiert nicht, wird ├╝bersprungen
+DROP TABLE
+Time: 0,112 ms
+SELECT 30
+Time: 5763,544 ms (00:05,764)
+COMMENT
+Time: 0,298 ms
+
+=== A6 ┬À Gewichtsspirale Deutschland ======================================
+ jahr |    quelle     | zulassungen | avg_masse_kg | masse_gleitend_3j | masse_delta_zum_start | avg_co2_wltp | co2_gleitend_3j | co2_delta_zum_start 
+------+---------------+-------------+--------------+-------------------+-----------------------+--------------+-----------------+---------------------
+ 2021 | faktentabelle |     2530022 |       1577.1 |            1577.1 |                   0.0 |        113.7 |           113.7 |                 0.0
+ 2022 | faktentabelle |     2571007 |       1631.0 |            1604.0 |                  54.0 |        106.1 |           109.9 |                -7.7
+ 2023 | faktentabelle |     2765099 |       1631.7 |            1613.2 |                  54.6 |        113.1 |           111.0 |                -0.7
+ 2024 | faktentabelle |     2728158 |       1634.1 |            1632.3 |                  57.0 |        117.2 |           112.1 |                 3.5
+ 2025 | faktentabelle |     2772126 |       1701.0 |            1655.6 |                 123.9 |        102.6 |           111.0 |               -11.1
+(5 rows)
+
+Time: 0,788 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/40_analysen_A1_A6.sql:314: HINWEIS:  core.realworld vorhanden ÔÇö 41_analysen_A4_A5.sql kann laufen.
+DO
+Time: 177,704 ms
+ANALYZE
+Time: 1,864 ms
+ANALYZE
+Time: 0,404 ms
+ANALYZE
+Time: 0,843 ms
+ANALYZE
+Time: 0,370 ms
+
+=== Erzeugte mart-Tabellen ===============================================
+      tabelle       | zeilen | groesse 
+--------------------+--------+---------
+ a1_antriebsmix     |    242 | 72 kB
+ a2_de_vs_eu        |     49 | 16 kB
+ a3_flottenziele    |    134 | 40 kB
+ a6_gewichtsspirale |     30 | 16 kB
+(4 rows)
+
+Time: 11,252 ms

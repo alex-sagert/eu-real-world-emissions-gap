@@ -1,0 +1,218 @@
+﻿Timing is on.
+SET
+Time: 0,197 ms
+SET
+Time: 0,051 ms
+SET
+Time: 0,063 ms
+SET
+Time: 0,053 ms
+DROP TABLE
+Time: 96,594 ms
+DROP TABLE
+Time: 21,057 ms
+DROP TABLE
+Time: 13,768 ms
+DROP TABLE
+Time: 23,605 ms
+DROP TABLE
+Time: 5,870 ms
+DROP TABLE
+Time: 5,985 ms
+CREATE TABLE
+Time: 65,370 ms
+COMMENT
+Time: 9,263 ms
+INSERT 0 29
+Time: 4,376 ms
+CREATE TABLE
+Time: 5,526 ms
+COMMENT
+Time: 0,259 ms
+COMMENT
+Time: 0,143 ms
+INSERT 0 413
+Time: 22603,793 ms (00:22,604)
+CREATE TABLE
+Time: 5,395 ms
+INSERT 0 12014
+Time: 22349,343 ms (00:22,349)
+CREATE TABLE
+Time: 8,523 ms
+INSERT 0 21
+Time: 26841,222 ms (00:26,841)
+CREATE TABLE
+Time: 4,755 ms
+INSERT 0 1
+Time: 2,228 ms
+INSERT 0 6209
+Time: 36,723 ms
+CREATE TABLE
+Time: 2,531 ms
+CREATE TABLE
+Time: 8,159 ms
+CREATE TABLE
+Time: 8,225 ms
+CREATE TABLE
+Time: 4,123 ms
+CREATE TABLE
+Time: 3,333 ms
+CREATE TABLE
+Time: 3,068 ms
+CREATE TABLE
+Time: 2,378 ms
+COMMENT
+Time: 0,645 ms
+INSERT 0 37092376
+Time: 255027,003 ms (04:15,027)
+
+--- Primaerschluessel anlegen (nach dem Laden) ----------------------------
+ALTER TABLE
+Time: 124691,250 ms (02:04,691)
+--- Fremdschluessel anlegen ----------------------------------------------
+ALTER TABLE
+Time: 28355,388 ms (00:28,355)
+INSERT 0 1
+Time: 54501,818 ms (00:54,502)
+
+--- Gr├Â├ƒe der Dimensionen -------------------------------------------------
+    dimension     | zeilen 
+------------------+--------
+ dim_model        |  12014
+ dim_date         |   6210
+ dim_manufacturer |    413
+ dim_country      |     29
+ dim_powertrain   |     21
+(5 rows)
+
+Time: 5,309 ms
+
+--- Faktentabelle je Partition --------------------------------------------
+          partition           | zeilen_geschaetzt |  groesse   
+------------------------------+-------------------+------------
+ fact_registration            | -1                | 0 bytes
+ fact_registration_2021       | 7.152.968         | 1344 MB
+ fact_registration_2021_pkey  | 7.152.968         | 215 MB
+ fact_registration_2022       | 6.838.771         | 1322 MB
+ fact_registration_2022_pkey  | 6.838.771         | 206 MB
+ fact_registration_2023       | 7.671.599         | 1478 MB
+ fact_registration_2023_pkey  | 7.671.599         | 231 MB
+ fact_registration_2024       | 7.659.109         | 1440 MB
+ fact_registration_2024_pkey  | 7.659.109         | 230 MB
+ fact_registration_2025       | 7.769.929         | 1460 MB
+ fact_registration_2025_pkey  | 7.769.929         | 234 MB
+ fact_registration_pkey       | 0                 | 0 bytes
+ fact_registration_reg_sk_seq | 1                 | 8192 bytes
+ fact_registration_rest       | -1                | 16 kB
+ fact_registration_rest_pkey  | 0                 | 8192 bytes
+(15 rows)
+
+Time: 36,184 ms
+
+--- Zeilenkontrolle core gegen star ---------------------------------------
+ core_zeilen | star_zeilen | differenz 
+-------------+-------------+-----------
+    37092376 |    37092376 |         0
+(1 row)
+
+Time: 52673,215 ms (00:52,673)
+
+--- Pooling je Jahr (H5) --------------------------------------------------
+ jahr | in_pool | einzeln | prozent_gepoolt 
+------+---------+---------+-----------------
+ 2021 | 6944527 |  208441 |           97.09
+ 2022 | 6437645 |  401126 |           94.13
+ 2023 | 7044012 |  627587 |           91.82
+ 2024 | 7193528 |  465581 |           93.92
+ 2025 | 2826195 | 4943734 |           36.37
+(5 rows)
+
+Time: 7961,140 ms (00:07,961)
+
+--- Gr├Â├ƒte Abrechnungseinheiten 2025 --------------------------------------
+               hersteller_gruppe               | ist_gepoolt | zulassungen | avg_co2_wltp | avg_masse_kg | avg_oeko_gutschrift 
+-----------------------------------------------+-------------+-------------+--------------+--------------+---------------------
+ TESLA                                         | t           |     1137136 |         89.1 |         1541 |                1.14
+ STELLANTIS AUTO                               | f           |     1002795 |        100.8 |         1423 |                1.80
+ VOLKSWAGEN                                    | f           |      916303 |        101.2 |         1629 |                1.28
+ MERCEDES-BENZ, VOLVO CARS, POLESTAR AND SMART | t           |      575819 |         96.3 |         1992 |                1.45
+ BMW                                           | t           |      559035 |         95.3 |         1853 |                2.03
+ RENAULT                                       | f           |      504706 |        102.2 |         1436 |                1.26
+ SKODA                                         | f           |      396304 |         93.1 |         1587 |                1.71
+ DACIA                                         | f           |      389192 |        111.6 |         1286 |                1.54
+ AUDI AG                                       | f           |      376128 |        104.4 |         1823 |                1.68
+ SEAT                                          | f           |      336395 |         94.1 |         1525 |                1.73
+ STELLANTIS EUROPE                             | f           |      283198 |        101.0 |         1260 |                1.57
+ HYUNDAI MOTOR EUROPE                          | t           |      282487 |         96.2 |         1456 |                1.09
+ NISSAN-BYD                                    | t           |      232292 |         75.3 |         1735 |                1.24
+ SAIC MOTOR CORPORATION                        | f           |      166264 |         96.1 |         1523 |                    
+ KIA                                           | f           |      149908 |         78.4 |         1447 |                1.20
+ KIA SLOVAKIA                                  | f           |       94877 |        128.6 |         1555 |                1.43
+ AMPERE                                        | f           |       77075 |          0.0 |         1500 |                    
+ PORSCHE                                       | f           |       47144 |        119.9 |         2152 |                1.03
+ CHERY                                         | f           |       39863 |        101.9 |         1748 |                    
+ DR AUTOMOBILES                                | f           |       27917 |        156.3 |         1465 |                    
+ JAGUAR LAND ROVER LIMITED                     | f           |       27634 |        143.3 |         2415 |                1.29
+ AA-IVA                                        | f           |       21873 |        150.8 |         2097 |                1.06
+ KG MOBILITY XPENG                             | t           |       20972 |         62.6 |         2016 |                    
+ MAZDA                                         | t           |       18454 |        104.9 |         1588 |                0.68
+ EBRO SUV                                      | f           |       12459 |        111.6 |         1710 |                    
+(25 rows)
+
+Time: 3957,614 ms (00:03,958)
+
+--- Antriebsmix je Jahr (erste fachliche Kontrolle) ------------------------
+ jahr |    antrieb_label     | zulassungen | prozent | avg_co2_wltp | avg_masse_kg 
+------+----------------------+-------------+---------+--------------+--------------
+ 2021 | Benzin (rein)        |     2750372 |   38.45 |        138.7 |         1289
+ 2021 | Diesel (rein)        |     1428634 |   19.97 |        141.5 |         1571
+ 2021 | Hybrid ohne Stecker  |     1332976 |   18.64 |        129.1 |         1433
+ 2021 | Batterieelektrisch   |      786286 |   10.99 |          0.0 |         1716
+ 2021 | Plug-in-Hybrid       |      648510 |    9.07 |         38.0 |         1918
+ 2021 | Bi-Fuel (LPG/Erdgas) |      167960 |    2.35 |        119.6 |         1252
+ 2021 | Verbrenner sonstige  |       33010 |    0.46 |        105.0 |         1308
+ 2021 | Flex-Fuel (E85)      |        4509 |    0.06 |        165.7 |         1582
+ 2021 | Brennstoffzelle      |         704 |    0.01 |          0.0 |         1964
+ 2021 | Unbekannt            |           7 |    0.00 |              |         2323
+ 2022 | Benzin (rein)        |     2300479 |   33.64 |        139.2 |         1303
+ 2022 | Hybrid ohne Stecker  |     1592669 |   23.29 |        129.1 |         1465
+ 2022 | Diesel (rein)        |     1107829 |   16.20 |        141.4 |         1587
+ 2022 | Batterieelektrisch   |      966084 |   14.13 |          0.0 |         1810
+ 2022 | Plug-in-Hybrid       |      656026 |    9.59 |         34.2 |         1919
+ 2022 | Bi-Fuel (LPG/Erdgas) |      189888 |    2.78 |        120.5 |         1263
+ 2022 | Verbrenner sonstige  |       12466 |    0.18 |        105.1 |         1333
+ 2022 | Flex-Fuel (E85)      |       12155 |    0.18 |        123.9 |         1249
+ 2022 | Brennstoffzelle      |        1146 |    0.02 |          0.0 |         1943
+ 2022 | Unbekannt            |          29 |    0.00 |        107.1 |         1678
+ 2023 | Benzin (rein)        |     2633639 |   34.33 |        138.5 |         1305
+ 2023 | Hybrid ohne Stecker  |     2084091 |   27.17 |        129.5 |         1496
+ 2023 | Batterieelektrisch   |     1163916 |   15.17 |          0.0 |         1846
+ 2023 | Diesel (rein)        |     1020450 |   13.30 |        143.3 |         1603
+ 2023 | Plug-in-Hybrid       |      528883 |    6.89 |         30.7 |         1971
+ 2023 | Bi-Fuel (LPG/Erdgas) |      232274 |    3.03 |        121.5 |         1285
+ 2023 | Flex-Fuel (E85)      |        4781 |    0.06 |        120.1 |         1239
+ 2023 | Verbrenner sonstige  |        2965 |    0.04 |        107.6 |         1336
+ 2023 | Brennstoffzelle      |         600 |    0.01 |          0.0 |         1979
+ 2024 | Hybrid ohne Stecker  |     2498240 |   32.62 |        126.7 |         1500
+ 2024 | Benzin (rein)        |     2458434 |   32.10 |        137.0 |         1295
+ 2024 | Batterieelektrisch   |     1051147 |   13.72 |          0.0 |         1923
+ 2024 | Diesel (rein)        |      887769 |   11.59 |        145.8 |         1642
+ 2024 | Plug-in-Hybrid       |      507178 |    6.62 |         27.2 |         2048
+ 2024 | Bi-Fuel (LPG/Erdgas) |      251530 |    3.28 |        119.4 |         1278
+ 2024 | Flex-Fuel (E85)      |        2101 |    0.03 |        150.6 |         1483
+ 2024 | Verbrenner sonstige  |        1985 |    0.03 |        110.6 |         1380
+ 2024 | Brennstoffzelle      |         706 |    0.01 |          0.0 |         1992
+ 2024 | Unbekannt            |          19 |    0.00 |        214.0 |         1895
+ 2025 | Hybrid ohne Stecker  |     2824517 |   36.35 |        124.1 |         1511
+ 2025 | Benzin (rein)        |     1895219 |   24.39 |        136.4 |         1300
+ 2025 | Batterieelektrisch   |     1413943 |   18.20 |          0.0 |         1942
+ 2025 | Plug-in-Hybrid       |      715655 |    9.21 |         24.6 |         2014
+ 2025 | Diesel (rein)        |      650439 |    8.37 |        148.5 |         1688
+ 2025 | Bi-Fuel (LPG/Erdgas) |      269432 |    3.47 |        119.3 |         1286
+ 2025 | Brennstoffzelle      |         363 |    0.00 |          0.0 |         1994
+ 2025 | Verbrenner sonstige  |         180 |    0.00 |        133.6 |         1383
+ 2025 | Flex-Fuel (E85)      |         172 |    0.00 |        253.5 |         2243
+ 2025 | Unbekannt            |           9 |    0.00 |        184.3 |         1707
+(49 rows)
+
+Time: 7283,000 ms (00:07,283)

@@ -1,0 +1,110 @@
+﻿Timing is on.
+SET
+Time: 0,190 ms
+SET
+Time: 0,118 ms
+SET
+Time: 0,103 ms
+SET
+Time: 0,115 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/13_smard_strommix.sql:58: HINWEIS:  Eingangskontrolle bestanden: 43753 Stundenwerte in raw.smard_erzeugung.
+DO
+Time: 17,543 ms
+DROP TABLE
+Time: 7,017 ms
+CREATE TABLE
+Time: 18,020 ms
+INSERT 0 12
+Time: 1,553 ms
+COMMENT
+Time: 0,890 ms
+DROP TABLE
+Time: 3,229 ms
+SELECT 508199
+Time: 3458,752 ms (00:03,459)
+CREATE INDEX
+Time: 136,229 ms
+CREATE INDEX
+Time: 269,831 ms
+ANALYZE
+Time: 65,041 ms
+DROP TABLE
+Time: 3,944 ms
+SELECT 43753
+Time: 375,287 ms
+CREATE INDEX
+Time: 16,429 ms
+CREATE INDEX
+Time: 19,956 ms
+ANALYZE
+Time: 76,706 ms
+COMMENT
+Time: 0,144 ms
+
+--- Jahresmittel der CO2-Intensitaet --------------------------------------
+>>> Plausibilitaetsanker: Der deutsche Strommix lag in diesen Jahren
+>>> groessenordnungsmaessig zwischen 300 und 450 g/kWh und faellt.
+>>> Werte deutlich ausserhalb deuten auf falsche Faktoren oder Filter-IDs.
+ jahr | stunden | mittel_g_kwh | min_g_kwh | max_g_kwh | erneuerbar_prozent | erzeugung_twh 
+------+---------+--------------+-----------+-----------+--------------------+---------------
+ 2021 |    8688 |        371.8 |      86.8 |     597.5 |               41.6 |         499.6
+ 2022 |    8760 |        407.5 |     118.0 |     661.2 |               46.0 |         489.8
+ 2023 |    8760 |        348.0 |      95.4 |     672.7 |               55.6 |         443.4
+ 2024 |    8784 |        329.3 |      77.1 |     643.8 |               58.0 |         427.3
+ 2025 |    8760 |        321.9 |      64.6 |     650.5 |               58.3 |         428.0
+ 2026 |       1 |        203.4 |     203.4 |     203.4 |               71.3 |           0.1
+(6 rows)
+
+Time: 15,093 ms
+
+--- Tagesgang 2025: wann ist Laden sauber? --------------------------------
+ stunde | mittel_g_kwh | erneuerbar_prozent 
+--------+--------------+--------------------
+      0 |        376.3 |               51.9
+      1 |        373.9 |               52.4
+      2 |        373.8 |               52.5
+      3 |        374.5 |               52.4
+      4 |        376.4 |               52.0
+      5 |        378.7 |               51.5
+      6 |        371.6 |               51.9
+      7 |        350.5 |               54.4
+      8 |        313.7 |               59.1
+      9 |        271.0 |               64.6
+     10 |        236.4 |               69.2
+     11 |        215.8 |               71.8
+     12 |        207.1 |               72.9
+     13 |        209.0 |               72.7
+     14 |        220.2 |               71.2
+     15 |        241.6 |               68.4
+     16 |        270.2 |               64.7
+     17 |        304.5 |               60.1
+     18 |        343.0 |               54.9
+     19 |        373.5 |               50.8
+     20 |        387.3 |               49.1
+     21 |        388.2 |               49.2
+     22 |        387.0 |               49.7
+     23 |        381.5 |               50.8
+(24 rows)
+
+Time: 3,371 ms
+
+--- Verwendete Emissionsfaktoren (Annahmen offengelegt) -------------------
+         traeger         | g_co2_je_kwh |  art   | geprueft |                                                        begruendung                                                         
+-------------------------+--------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------
+ braunkohle              |       1100.0 | direkt | f        | Groessenordnung deutscher Braunkohlekraftwerke; hoechster Faktor im Mix
+ steinkohle              |        850.0 | direkt | f        | Groessenordnung deutscher Steinkohlekraftwerke
+ sonstige_konventionelle |        600.0 | direkt | f        | Sammelposten Oel/Abfall/Sonstige; Naeherung, Anteil am Mix gering
+ erdgas                  |        400.0 | direkt | f        | GuD und Gasturbinen gemischt; Bandbreite 350-450
+ biomasse                |          0.0 | direkt | f        | bilanziell als CO2-neutral gefuehrt; bei Lebenszyklusbetrachtung deutlich > 0
+ kernenergie             |          0.0 | direkt | t        | keine Verbrennungsemission; ab April 2023 ohnehin 0 MWh
+ photovoltaik            |          0.0 | direkt | t        | keine Verbrennungsemission
+ pumpspeicher            |          0.0 | direkt | f        | Speicher, keine Primaererzeugung. Die Emission steckt im eingespeicherten Strom und wuerde bei Anrechnung doppelt gezaehlt
+ sonstige_erneuerbare    |          0.0 | direkt | t        | Geothermie/Sonstige
+ wasserkraft             |          0.0 | direkt | t        | keine Verbrennungsemission
+ wind_offshore           |          0.0 | direkt | t        | keine Verbrennungsemission
+ wind_onshore            |          0.0 | direkt | t        | keine Verbrennungsemission
+(12 rows)
+
+Time: 0,351 ms
+
+>>> Naechster Schritt: 42_wtw_vergleich.sql - Well-to-Wheel je Antriebsklasse.

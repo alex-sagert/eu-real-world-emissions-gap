@@ -1,0 +1,16 @@
+# Streamlit-App "Gap-Rechner" — Papier gegen Straße
+# Installation über 03_skripte\00_setup_python_env.ps1
+
+streamlit==1.38.0
+pandas==2.2.2
+numpy==1.26.4
+psycopg2-binary==2.9.9
+SQLAlchemy==2.0.32
+plotly==5.24.0
+
+# Analyse / Export
+pyarrow==17.0.0
+openpyxl==3.1.5
+
+# Nur für die Validierung der SMARD-Zeitreihen
+requests==2.32.3

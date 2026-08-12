@@ -1,0 +1,127 @@
+﻿Timing is on.
+SET
+Time: 0,153 ms
+SET
+Time: 0,060 ms
+SET
+Time: 0,065 ms
+SET
+Time: 0,058 ms
+CREATE FUNCTION
+Time: 40,074 ms
+COMMENT
+Time: 11,546 ms
+CREATE FUNCTION
+Time: 0,304 ms
+CREATE FUNCTION
+Time: 0,282 ms
+CREATE FUNCTION
+Time: 0,779 ms
+CREATE TABLE
+Time: 36,793 ms
+INSERT 0 10
+Time: 1,485 ms
+CREATE FUNCTION
+Time: 1,948 ms
+COMMENT
+Time: 0,139 ms
+CREATE FUNCTION
+Time: 1,593 ms
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/20_core.sql:160: HINWEIS:  Tabelle ┬╗registration┬½ existiert nicht, wird ├╝bersprungen
+DROP TABLE
+Time: 3,558 ms
+CREATE TABLE
+Time: 11,318 ms
+COMMENT
+Time: 0,161 ms
+INSERT 0 37092376
+Time: 2081699,953 ms (34:41,700)
+INSERT 0 6
+Time: 18435,752 ms (00:18,436)
+INSERT 0 1
+Time: 85960,480 ms (01:25,960)
+INSERT 0 5
+Time: 15841,144 ms (00:15,841)
+INSERT 0 1
+Time: 19265,484 ms (00:19,265)
+INSERT 0 1
+Time: 19347,867 ms (00:19,348)
+INSERT 0 1
+Time: 59415,810 ms (00:59,416)
+
+--- Zeilen je Jahr: raw gegen core ----------------------------------------
+ jahr |  n_raw  | n_core  | ausgefiltert 
+------+---------+---------+--------------
+ 2021 | 7164289 | 7152968 |        11321
+ 2022 | 6853648 | 6838771 |        14877
+ 2023 | 7685055 | 7671599 |        13456
+ 2024 | 7666174 | 7659109 |         7065
+ 2025 | 7770432 | 7769929 |          503
+(5 rows)
+
+Time: 33616,024 ms (00:33,616)
+
+--- Antriebsklassen je Jahr -----------------------------------------------
+ antriebsklasse |  j2021  |  j2023  |  j2025  |  gesamt  | prozent 
+----------------+---------+---------+---------+----------+---------
+ ICE_BENZIN     | 2750372 | 2633639 | 1895219 | 12038143 |   32.45
+ HEV            | 1332976 | 2084091 | 2824517 | 10332493 |   27.86
+ BEV            |  786286 | 1163916 | 1413943 |  5381376 |   14.51
+ ICE_DIESEL     | 1428634 | 1020450 |  650439 |  5095121 |   13.74
+ PHEV           |  648510 |  528883 |  715655 |  3056252 |    8.24
+ BIFUEL         |  167960 |  232274 |  269432 |  1111084 |    3.00
+ ICE_SONSTIGE   |   33010 |    2965 |     180 |    50606 |    0.14
+ FLEX           |    4509 |    4781 |     172 |    23718 |    0.06
+ FCEV           |     704 |     600 |     363 |     3519 |    0.01
+ UNBEKANNT      |       7 |       0 |       9 |       64 |    0.00
+(10 rows)
+
+Time: 18907,797 ms (00:18,908)
+
+--- ├ûko-Innovation: wie viele Fahrzeuge, wie viele Codes ------------------
+ jahr | fahrzeuge | mit_oeko | prozent | avg_gutschrift 
+------+-----------+----------+---------+----------------
+ 2021 |   7152968 |  3935579 |   55.02 |           1.47
+ 2022 |   6838771 |  4598521 |   67.24 |           1.50
+ 2023 |   7671599 |  5117912 |   66.71 |           1.52
+ 2024 |   7659109 |  4280769 |   55.89 |           1.48
+ 2025 |   7769929 |  4343465 |   55.90 |           1.51
+(5 rows)
+
+Time: 15585,875 ms (00:15,586)
+
+--- H├ñufigste ├ûko-Innovationscodes (tokenisiert) --------------------------
+ code | fahrzeuge 
+------+-----------
+ 29   |  14147370
+ 37   |  12795601
+ 28   |   3824759
+ 32   |   2236049
+ 33   |   1679186
+ 08   |      1316
+ 38   |       585
+(7 rows)
+
+Time: 16830,946 ms (00:16,831)
+
+--- Neue Befunde aus dem core-Schritt -------------------------------------
+    objekt    |     spalte     |                             pruefung                             | ergebnis | einheit | bewertung  |                                                                               kommentar                                                                               
+--------------+----------------+------------------------------------------------------------------+----------+---------+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ registration | fahrzeugklasse | Beim ├£bergang raw -> core ausgeschlossene Zeilen                 |       52 | Zeilen  | auffaellig | Fahrzeugklasse N2 geh├Ârt nicht zu M1/M1G
+ registration | fahrzeugklasse | Beim ├£bergang raw -> core ausgeschlossene Zeilen                 |        1 | Zeilen  | auffaellig | Fahrzeugklasse M2 geh├Ârt nicht zu M1/M1G
+ registration | fahrzeugklasse | Beim ├£bergang raw -> core ausgeschlossene Zeilen                 |       32 | Zeilen  | auffaellig | Fahrzeugklasse N1G geh├Ârt nicht zu M1/M1G
+ registration | fahrzeugklasse | Beim ├£bergang raw -> core ausgeschlossene Zeilen                 |    45826 | Zeilen  | auffaellig | Fahrzeugklasse (leer) geh├Ârt nicht zu M1/M1G
+ registration | fahrzeugklasse | Beim ├£bergang raw -> core ausgeschlossene Zeilen                 |        5 | Zeilen  | auffaellig | Fahrzeugklasse N2G geh├Ârt nicht zu M1/M1G
+ registration | fahrzeugklasse | Beim ├£bergang raw -> core ausgeschlossene Zeilen                 |     1306 | Zeilen  | auffaellig | Fahrzeugklasse N1 geh├Ârt nicht zu M1/M1G
+ registration | src_id         | Beim Uebergang raw -> core entfernte Dubletten (gleiche Satz-ID) |        0 | Zeilen  | ok         | Entstehen, wenn ein Wiederaufsetzpunkt hinter dem tatsaechlichen Schreibstand lag. Die EEA-Satz-ID ist je Jahrgang eindeutig, DISTINCT ON ist daher fachlich korrekt.
+ registration | jahr 2022      | Eindeutige Saetze gegen Quellzaehlung (vor Klassenfilter)        |   -14877 | Zeilen  | auffaellig | Ist 6838771, Soll 6853648. Differenz erklaert sich aus dem Filter Ct IN (M1, M1G).
+ registration | jahr 2025      | Eindeutige Saetze gegen Quellzaehlung (vor Klassenfilter)        |     -503 | Zeilen  | ok         | Ist 7769929, Soll 7770432. Differenz erklaert sich aus dem Filter Ct IN (M1, M1G).
+ registration | jahr 2024      | Eindeutige Saetze gegen Quellzaehlung (vor Klassenfilter)        |    -7065 | Zeilen  | auffaellig | Ist 7659109, Soll 7666174. Differenz erklaert sich aus dem Filter Ct IN (M1, M1G).
+ registration | jahr 2023      | Eindeutige Saetze gegen Quellzaehlung (vor Klassenfilter)        |   -13456 | Zeilen  | auffaellig | Ist 7671599, Soll 7685055. Differenz erklaert sich aus dem Filter Ct IN (M1, M1G).
+ registration | jahr 2021      | Eindeutige Saetze gegen Quellzaehlung (vor Klassenfilter)        |   -11321 | Zeilen  | auffaellig | Ist 7152968, Soll 7164289. Differenz erklaert sich aus dem Filter Ct IN (M1, M1G).
+ registration | antriebsklasse | S├ñtze ohne zuordenbare Antriebsklasse                            |       64 | Zeilen  | auffaellig | Kombination Ft/Fm nicht in der Regeltabelle ÔÇö Regel in core.antriebsklasse pr├╝fen
+ registration | oeko_codes     | IT belegt, aber kein Code aufl├Âsbar                              |        4 | Zeilen  | auffaellig | Beh├Ârdenkennung und Technologienummer verschmolzen (z. B. e529) ÔÇö bewusst verworfen statt geraten
+ registration | co2_wltp       | Ewltp im Rohtext vorhanden, aber nicht konvertierbar             |        0 | Zeilen  | ok         | Wenn > 0, ist die Konvertierungsregel in core.zu_zahl unvollst├ñndig
+(15 rows)
+
+Time: 4,145 ms

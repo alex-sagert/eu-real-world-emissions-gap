@@ -1,0 +1,49 @@
+Bericht zur CSV-Pruefung und -Reparatur
+erstellt 11.08.2026 21:56
+
+Anlass: Eine Wiederaufnahme vor Einbau der Abschneidelogik hinterliess eine
+halb geschriebene Zeile, an die beim Anhaengen die naechste Zeile geklebt wurde.
+PostgreSQL bricht bei so einer Zeile den gesamten COPY ab.
+
+=== co2cars_2021.csv ==================================================
+  Zeilen mit 30 Feldern (verwertbar) : 7,164,288
+  Zeilen mit abweichender Feldzahl        : 1
+  doppelte IDs                            : 49,622
+  eindeutige IDs                          : 7,114,666
+  Sollmenge laut Quellzaehlung            : 7,164,289
+  Differenz eindeutige IDs zu Soll        : -49,623
+    Zeile    814,909:  34 Felder | 815048,ES,STELLANTIS,OPEL AUTOMOBILE,OPEL AUTOMOBILE765418,ES,KIA,KIA,KIA CORPORATION,e5*2007/46*1077*07,YB,C5P61,M6CEZ1,KIA,STONIC,M1,1225,1367,,128,
+
+=== co2cars_2022.csv ==================================================
+  Zeilen mit 30 Feldern (verwertbar) : 6,853,648
+  Zeilen mit abweichender Feldzahl        : 0
+  doppelte IDs                            : 0
+  eindeutige IDs                          : 6,853,648
+  Sollmenge laut Quellzaehlung            : 6,853,648
+  Differenz eindeutige IDs zu Soll        : +0
+
+=== co2cars_2023.csv ==================================================
+  Zeilen mit 30 Feldern (verwertbar) : 7,685,054
+  Zeilen mit abweichender Feldzahl        : 1
+  doppelte IDs                            : 30,932
+  eindeutige IDs                          : 7,654,122
+  Sollmenge laut Quellzaehlung            : 7,685,055
+  Differenz eindeutige IDs zu Soll        : -30,933
+    Zeile    729,764:  52 Felder | 121288423,FR,STELLANTIS,STELLANTIS AUTO,STELLANTIS AUTO SAS,E2*2007/46*0628*28,F,C,YHZT-D21700,PEUGEOT,308,M1,1475,1580,,131,,diesel,M,1499,96,,e2 29 
+
+=== co2cars_2024.csv ==================================================
+  Zeilen mit 30 Feldern (verwertbar) : 7,666,174
+  Zeilen mit abweichender Feldzahl        : 0
+  doppelte IDs                            : 0
+  eindeutige IDs                          : 7,666,174
+  Sollmenge laut Quellzaehlung            : 7,666,174
+  Differenz eindeutige IDs zu Soll        : +0
+
+=== co2cars_2025.csv ==================================================
+  Zeilen mit 30 Feldern (verwertbar) : 7,770,431
+  Zeilen mit abweichender Feldzahl        : 1
+  doppelte IDs                            : 32,881
+  eindeutige IDs                          : 7,737,550
+  Sollmenge laut Quellzaehlung            : 7,770,432
+  Differenz eindeutige IDs zu Soll        : -32,882
+    Zeile    952,942:  40 Felder | 173091957,FR,TESLA,TOYOTA,TOYOTA MOTOR EUROPE NV SA,E6*2007/46*0437*09,XPA1F(EU,M),MXPH11(H),MXPH11L-CHXNBW(1K),TOYOTA,TOYOTA YAR173059075,FR,,STELLAN
