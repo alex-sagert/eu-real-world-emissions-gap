@@ -19,6 +19,8 @@ reproduzierbar.
 
 ### Die Lücke, Deutschland, 1.608.112 Fahrzeuge
 
+![Realverbrauchslücke je Antriebsklasse](05_visualisierung/01_barchart_luecke_je_antriebsklasse.png)
+
 Median über alle Zulassungsjahrgänge, Kraftstoffverbrauch in l/100 km:
 
 | Antrieb | Laborwert | gemessen | Abweichung | P90 |
@@ -59,6 +61,8 @@ Fünfjahresmittel, fallend):
 | Hybrid | 141,0 | **171,4** | +22 % |
 | Diesel | 146,0 | **173,3** | +19 % |
 
+![Offiziell gegen Well-to-Wheel](05_visualisierung/04_barchart_well_to_wheel.png)
+
 Alle Werte in g CO₂/km. Der Plug-in-Hybrid bleibt auf Flottenebene sparsamer als der
 reine Benziner — die Kippgrenze liegt bei 500 g/kWh, der deutsche Mix bei 355,6 und
 fallend. Sein zertifizierter Vorsprung schrumpft auf der Straße jedoch auf etwa ein
@@ -67,6 +71,12 @@ Zehntel.
 Für das Batterieauto schreibt die Verordnung 0 g/km vor. Real sind es 66,7, über drei
 Aufschlagsszenarien zwischen 58,0 und 75,4 — im ungünstigsten Fall noch 44 % des besten
 Verbrenners.
+
+![Laborwert gegen gemessenen Verbrauch je Modell](05_visualisierung/02_scatter_papier_gegen_strasse.png)
+
+*Laborwert (x) gegen gemessenen Verbrauch (y) je Modell. Die Plug-in-Hybride
+liegen links unten als eigene Wolke — kleiner Laborwert, großer Realwert. Der
+Abstand zur Winkelhalbierenden ist die Lücke.*
 
 ### Auf Modellebene kehrt sich die Rangfolge um
 
@@ -141,6 +151,8 @@ Server, ohne CTE-Unterstützung und mit begrenzter Antwortgröße.
                                   ▼
    mart    eine Ergebnistabelle je Analyse — KNIME und Streamlit lesen nur hier
 ```
+
+![Sternschema](05_visualisierung/07_erd_star_sternschema.png)
 
 `meta` führt daneben das Ladeprotokoll und die Datenqualitätsbefunde.
 

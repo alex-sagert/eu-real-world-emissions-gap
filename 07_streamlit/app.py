@@ -172,7 +172,7 @@ except Exception as fehler:  # noqa: BLE001
             "Eine Datei `.streamlit/secrets.toml` im Projektordner anlegen:"
         )
         st.code(
-            '[postgres]\nuser = "postgres"\npassword = "DEIN_PASSWORT"\n'
+            '[postgres]\nuser = "postgres"\npassword = "HIER_DEIN_PASSWORT"\n'
             'host = "localhost"\nport = 5432\ndatabase = "bd_co2"',
             language="toml",
         )

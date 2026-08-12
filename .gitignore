@@ -23,6 +23,21 @@ _archiv/
 *.sauber
 
 # -----------------------------------------------------------------------------
+# Das oeffentliche Repository zeigt die Analyse, nicht die Kursabgabe.
+#
+# Bericht und Critically Appraised Topic sind Pruefungsdokumente und gehen
+# nur an die Hochschule. Die Praesentation bleibt, weil sie die Ergebnisse
+# fuer sich erklaert und ohne Kurskontext lesbar ist.
+# -----------------------------------------------------------------------------
+06_abgabe/*CAT*
+06_abgabe/*NvS*
+
+# KNIME: nur die lauffaehige Endfassung, keine Zwischenstaende
+04_knime/*_v[0-9].knwf
+04_knime/basis.knwf
+04_knime/Papier_gegen_Strasse.knwf
+
+# -----------------------------------------------------------------------------
 # Python
 # -----------------------------------------------------------------------------
 .venv/
