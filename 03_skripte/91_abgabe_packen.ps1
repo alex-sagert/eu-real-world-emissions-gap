@@ -37,7 +37,9 @@ Set-Location -LiteralPath $Wurzel
 function Schritt { param([string]$T, [string]$C='Cyan')
     Write-Host ("[{0}] {1}" -f (Get-Date -Format 'HH:mm:ss'), $T) -ForegroundColor $C }
 
-$name    = 'Sagert_Alexander__BD__Projekt__08_2026'
+# Der Dateiname ist von der Abgabe vorgegeben:
+#   {Nachname}_{Vorname}__BD__Projektarbeit__{Monat}_{Jahr}.zip
+$name    = 'Sagert_Alexander__BD__Projektarbeit__08_2026'
 $archiv  = Join-Path $Ziel "$name.zip"
 $sammeln = Join-Path $env:TEMP $name
 

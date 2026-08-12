@@ -368,10 +368,12 @@ if not phev.empty and pd.notna(phev.iloc[0]["e_anteil_pct"]):
         )
         st.plotly_chart(uf, use_container_width=True)
 
+    # Nur die Zahl bekommt das Komma, nicht der ganze Satz. Ein .replace(".", ",")
+    # auf der Zeichenkette macht aus jedem Satzpunkt ein Komma.
+    gem = f"{gemessen:.1f}".replace(".", ",")
     st.markdown(
-        f"> **Der Plug-in-Hybrid ist nicht schlecht gebaut. Er wird nicht geladen.** "
-        f"Die Regel unterstellt 84 Prozent, gemessen wurden {gemessen:.1f} Prozent."
-        .replace(".", ",")
+        "> **Der Plug-in-Hybrid ist nicht schlecht gebaut. Er wird nicht geladen.** "
+        f"Die Regel unterstellt 84 Prozent, gemessen wurden {gem} Prozent."
     )
     st.divider()
 
@@ -545,10 +547,11 @@ k2.metric("tatsächlich", f"{liter_real:,.0f} l".replace(",", "."),
 k3.metric("Differenz je Jahr", f"{mehr:,.0f} l".replace(",", "."),
           f"{mehr * preis:,.0f} €".replace(",", "."))
 
+p90 = f"{float(z['p90_pct']):.1f}".replace(".", ",")
 st.caption(
     "Rechnung auf Basis des Medians dieser Antriebsklasse. Ein einzelnes "
     "Fahrzeug kann deutlich darüber oder darunter liegen — das 90. Perzentil "
-    f"dieser Klasse liegt bei {z['p90_pct']:.1f} Prozent.".replace(".", ",")
+    f"dieser Klasse liegt bei {p90} Prozent."
 )
 
 st.divider()

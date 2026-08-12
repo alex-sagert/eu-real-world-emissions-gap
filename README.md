@@ -19,9 +19,10 @@ reproduzierbar.
 
 ### Die Lücke, Deutschland, 1.608.112 Fahrzeuge
 
-![Realverbrauchslücke je Antriebsklasse](05_visualisierung/01_barchart_luecke_je_antriebsklasse.png)
+![Realverbrauchslücke je Antriebsklasse](05_visualisierung/10_app_luecke_je_antrieb.png)
 
-Median über alle Zulassungsjahrgänge, Kraftstoffverbrauch in l/100 km:
+Median über alle Zulassungsjahrgänge, Kraftstoffverbrauch in l/100 km. Die Kontur ist
+der Laborwert, die gefüllte Fläche der gemessene:
 
 | Antrieb | Laborwert | gemessen | Abweichung | P90 |
 |---|---:|---:|---:|---:|
