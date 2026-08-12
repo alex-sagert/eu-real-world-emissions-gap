@@ -1,20 +1,20 @@
 ﻿Timing is on.
 SET
-Time: 0,195 ms
+Time: 0,796 ms
 SET
-Time: 0,122 ms
+Time: 0,042 ms
 SET
-Time: 0,145 ms
+Time: 0,034 ms
 SET
-Time: 0,095 ms
+Time: 0,034 ms
 DROP TABLE
-Time: 16,016 ms
+Time: 36,530 ms
 SELECT 348
-Time: 39506,121 ms (00:39,506)
+Time: 38432,049 ms (00:38,432)
 CREATE INDEX
-Time: 9,342 ms
+Time: 13,550 ms
 COMMENT
-Time: 2,739 ms
+Time: 1,963 ms
 
 === A4 ┬À Deutschland, alle Zulassungsjahre zusammen =======================
  antriebsklasse | fahrzeuge | real_l | wltp_l | gap_median_pct | gap_p90_pct | e_anteil_pct 
@@ -25,7 +25,7 @@ Time: 2,739 ms
  PHEV           |    223969 |   6.06 |   1.27 |          352.9 |       765.6 |         26.4
 (4 rows)
 
-Time: 15,594 ms
+Time: 8,750 ms
 
 === A4a2 ┬À Gepoolter Median ueber ALLE Zulassungsjahre (DE) ===============
 >>> Diese Zahlen sind die massgeblichen fuer H1, nicht die Zeile darueber.
@@ -37,7 +37,29 @@ Time: 15,594 ms
  PHEV           |    223969 |   6.06 |   1.40 |          320.7 |       666.5
 (4 rows)
 
-Time: 2534,530 ms (00:02,535)
+Time: 2466,412 ms (00:02,466)
+psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/41_analysen_A4_A5.sql:122: HINWEIS:  Tabelle ┬╗a4_luecke_gepoolt┬½ existiert nicht, wird ├╝bersprungen
+DROP TABLE
+Time: 0,859 ms
+SELECT 116
+Time: 27385,904 ms (00:27,386)
+CREATE INDEX
+Time: 5,697 ms
+COMMENT
+Time: 0,259 ms
+ANALYZE
+Time: 13,425 ms
+
+=== Kontrolle: stimmt die gepoolte Tabelle mit A4a2 ueberein? =============
+ antriebsklasse | fahrzeuge | real_l | wltp_l | gap_median_pct | gap_p90_pct 
+----------------+-----------+--------+--------+----------------+-------------
+ ICE_BENZIN     |    564918 |   7.44 |   6.40 |           16.0 |        34.8
+ ICE_DIESEL     |    410135 |   6.59 |   5.60 |           16.6 |        32.4
+ HEV            |    409090 |   7.07 |   5.90 |           18.8 |        37.4
+ PHEV           |    223969 |   6.06 |   1.40 |          320.7 |       666.5
+(4 rows)
+
+Time: 0,329 ms
 
 === A4b ┬À Die Luecke im Zeitverlauf (Zulassungsjahrgang) ==================
  jahr | antriebsklasse |   n    | gap_median_pct 
@@ -56,7 +78,7 @@ Time: 2534,530 ms (00:02,535)
  2023 | PHEV           |  27135 |          452.0
 (12 rows)
 
-Time: 0,973 ms
+Time: 1,125 ms
 
 === A4c ┬À Der Utility Factor in der Praxis (nur PHEV) =====================
 >>> WLTP unterstellt rund 84 % elektrische Fahrleistung.
@@ -152,14 +174,13 @@ Time: 0,973 ms
  SK   | 2023 |    388 |                  30.5 |           544 |   349.9
 (87 rows)
 
-Time: 0,572 ms
-psql:C:/Users/Alex/Desktop/Weiterbildung/educx/04_Big Data/Woche 4/Projekt_Papier_gegen_Strasse/02_sql/41_analysen_A4_A5.sql:139: HINWEIS:  Tabelle ┬╗a5_rangumkehr┬½ existiert nicht, wird ├╝bersprungen
+Time: 0,541 ms
 DROP TABLE
-Time: 0,205 ms
+Time: 7,239 ms
 SELECT 406
-Time: 3738,376 ms (00:03,738)
+Time: 3873,880 ms (00:03,874)
 COMMENT
-Time: 0,477 ms
+Time: 0,444 ms
 
 === A5 ┬À Groesste Absteiger: auf dem Papier gut, auf der Strasse schlecht ==
      marke      |         modell          | antriebsklasse | fahrzeuge | wltp_l | real_l | gap_pct | rang_papier | rang_strasse | rang_differenz 
@@ -191,7 +212,7 @@ Time: 0,477 ms
  BMW            | 330e                    | PHEV           |      3809 |   1.50 |   6.42 |   330.1 |          31 |           94 |             63
 (25 rows)
 
-Time: 1,217 ms
+Time: 1,405 ms
 
 === A5b ┬À Groesste Aufsteiger: auf dem Papier schlecht, real gut ===========
      marke     |      modell       | antriebsklasse | fahrzeuge | wltp_l | real_l | gap_pct | rang_papier | rang_strasse | rang_differenz 
@@ -223,7 +244,7 @@ Time: 1,217 ms
  CITROEN       | C3 AIRCROSS       | ICE_BENZIN     |       641 |   6.00 |   6.68 |    11.5 |         175 |          125 |            -50
 (25 rows)
 
-Time: 0,469 ms
+Time: 0,379 ms
 
 === A5c ┬À KERNFRAGE H2: schlagen reale Verbrenner reale PHEV? =============
 >>> Zaehlt Modellpaare, bei denen ein reiner Verbrenner real sparsamer ist
@@ -233,7 +254,7 @@ Time: 0,469 ms
         7960 |                   1665 |           20.9
 (1 row)
 
-Time: 5,397 ms
+Time: 5,167 ms
 
 === A5d ┬À Konkrete Umkehrungen, die stattfinden ===========================
        verbrenner        | antriebsklasse | v_papier | v_strasse |                 phev                 | p_papier | p_strasse | differenz_real_l 
@@ -265,11 +286,11 @@ Time: 5,397 ms
  MERCEDES-BENZ B 200 D   | ICE_DIESEL     |     5.10 |      5.69 | MERCEDES-BENZ GLE 350 E 4MATIC       |     1.10 |      8.42 |            -2.73
 (25 rows)
 
-Time: 4,965 ms
+Time: 5,172 ms
 ANALYZE
-Time: 9,943 ms
+Time: 2,936 ms
 ANALYZE
-Time: 1,822 ms
+Time: 1,830 ms
 
 === Gegenprobe gegen die EEA-Aggregatdatei ===============================
 >>> Eigene Rechnung gegen die von der EEA veroeffentlichten Werte.
@@ -290,4 +311,4 @@ Time: 1,822 ms
  2023 | PETROL/ELECTRIC |        119587 |       347.6 |       5.89 |       1.33
 (12 rows)
 
-Time: 8,365 ms
+Time: 10,683 ms

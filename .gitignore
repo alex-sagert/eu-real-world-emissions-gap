@@ -39,6 +39,8 @@ __pycache__/
 pgpass.conf
 secrets.toml
 .streamlit/secrets.toml
+# Die Beispieldatei ohne Passwort gehoert dagegen ins Repository
+!.streamlit/secrets.toml.beispiel
 
 # -----------------------------------------------------------------------------
 # KNIME

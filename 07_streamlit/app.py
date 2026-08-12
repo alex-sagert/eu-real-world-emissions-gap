@@ -16,6 +16,7 @@ Sie stehen nicht im Code und nicht im Repository.
 from __future__ import annotations
 
 import os
+from pathlib import Path
 from urllib.parse import quote_plus
 
 import pandas as pd
@@ -57,18 +58,30 @@ st.markdown(
 # --------------------------------------------------------------------------- #
 # Datenbank
 # --------------------------------------------------------------------------- #
-def _aus_secrets() -> dict | None:
-    """Liest den Abschnitt [postgres] aus secrets.toml, falls vorhanden.
+def _secrets_vorhanden() -> bool:
+    """Prueft, ob ueberhaupt eine secrets.toml existiert.
 
-    st.secrets wirft einen FileNotFoundError, wenn ueberhaupt keine
-    secrets.toml existiert — nicht nur, wenn der Abschnitt fehlt. Ein blosses
-    ``if "postgres" in st.secrets`` reicht deshalb nicht, das war der Absturz
-    beim ersten Start.
+    Wichtig: st.secrets darf nur angefasst werden, wenn die Datei da ist.
+    Fehlt sie, wirft der Zugriff nicht nur eine Ausnahme — Streamlit schreibt
+    zusaetzlich eine rote Meldung in die Oberflaeche, und zwar bei JEDEM
+    Zugriff. Ein try/except faengt die Ausnahme, aber nicht die Meldung.
+    Deshalb wird hier zuerst das Dateisystem gefragt.
     """
+    return any(
+        (Path.home() / ".streamlit" / "secrets.toml").exists()
+        or (Path.cwd() / ".streamlit" / "secrets.toml").exists()
+        for _ in (0,)
+    )
+
+
+def _aus_secrets() -> dict | None:
+    """Liest den Abschnitt [postgres] aus secrets.toml, falls vorhanden."""
+    if not _secrets_vorhanden():
+        return None
     try:
         if "postgres" in st.secrets:
             return dict(st.secrets["postgres"])
-    except Exception:  # FileNotFoundError und alles andere
+    except Exception:  # noqa: BLE001
         pass
     return None
 
@@ -185,29 +198,23 @@ with st.sidebar:
     st.caption("Realverbrauchslücke der EU-Neuwagenflotte, 2021–2025")
 
     laender = lies(
-        "SELECT DISTINCT land FROM mart.a4_luecke ORDER BY land"
+        "SELECT DISTINCT land FROM mart.a4_luecke_gepoolt ORDER BY land"
     )["land"].tolist()
     land = st.selectbox(
         "Land", laender, index=laender.index("DE") if "DE" in laender else 0
     )
 
-    jahre = lies(
-        f"SELECT DISTINCT jahr FROM mart.a4_luecke WHERE land = '{land}' ORDER BY jahr"
-    )["jahr"].tolist()
-    jahr_auswahl = st.multiselect("Zulassungsjahrgänge", jahre, default=jahre)
-
     st.divider()
     st.caption(
-        "Die App liest ausschließlich fertige Ergebnistabellen. "
-        "Sie rechnet nichts neu — damit kann sie nicht zu anderen Zahlen "
-        "kommen als der Bericht."
+        "Die Kennzahlen sind Mediane über **alle** Zulassungsjahrgänge gemeinsam "
+        "— dieselbe Tabelle, aus der auch Bericht und Präsentation lesen."
     )
-
-if not jahr_auswahl:
-    st.warning("Bitte mindestens einen Zulassungsjahrgang wählen.")
-    st.stop()
-
-jahre_sql = ", ".join(str(j) for j in jahr_auswahl)
+    st.caption(
+        "Ein Median lässt sich nicht aus Teilmedianen zusammensetzen. Eine "
+        "Auswahl einzelner Jahrgänge würde deshalb andere Zahlen liefern als "
+        "der Bericht. Die Entwicklung über die Jahrgänge steht weiter unten "
+        "als eigener Abschnitt."
+    )
 
 
 # --------------------------------------------------------------------------- #
@@ -227,22 +234,22 @@ st.divider()
 # --------------------------------------------------------------------------- #
 # 01 · Die Lücke je Antriebsklasse
 # --------------------------------------------------------------------------- #
-kopf("01", "Die Lücke", "Was das Papier verspricht. Was die Straße misst.",
-     f"{land} · Zulassungsjahrgänge {', '.join(str(j) for j in jahr_auswahl)} · Median")
-
 luecke = lies(f"""
-    SELECT antriebsklasse,
-           sum(fahrzeuge)                     AS fahrzeuge,
-           round(avg(median_wltp_l), 2)       AS wltp_l,
-           round(avg(median_real_l), 2)       AS real_l,
-           round(avg(median_gap_pct), 1)      AS gap_pct,
-           round(avg(p90_gap_pct), 1)         AS p90_pct,
-           round(avg(median_e_anteil_pct), 1) AS e_anteil_pct
-    FROM mart.a4_luecke
-    WHERE land = '{land}' AND jahr IN ({jahre_sql})
-    GROUP BY antriebsklasse
-    ORDER BY sum(fahrzeuge) DESC
+    SELECT antriebsklasse, fahrzeuge, wltp_l, real_l,
+           gap_median_pct AS gap_pct, gap_p90_pct AS p90_pct,
+           e_anteil_pct, jahr_von, jahr_bis
+    FROM mart.a4_luecke_gepoolt
+    WHERE land = '{land}'
+    ORDER BY fahrzeuge DESC
 """)
+
+if not luecke.empty:
+    spanne = f"{int(luecke['jahr_von'].min())}–{int(luecke['jahr_bis'].max())}"
+else:
+    spanne = ""
+
+kopf("01", "Die Lücke", "Was das Papier verspricht. Was die Straße misst.",
+     f"{land} · Zulassungsjahrgänge {spanne} · Median über alle Fahrzeuge")
 
 if luecke.empty:
     st.info("Für diese Auswahl liegen keine Daten vor.")
@@ -289,7 +296,7 @@ with st.expander("Warum der Median und nicht der Durchschnitt?"):
         "Ende reicht — beim Plug-in-Hybrid ist genau das die Aussage."
     )
     st.dataframe(
-        luecke.rename(columns={
+        luecke.drop(columns=["jahr_von", "jahr_bis"]).rename(columns={
             "antriebsklasse": "Antrieb", "fahrzeuge": "Fahrzeuge",
             "wltp_l": "WLTP l/100 km", "real_l": "real l/100 km",
             "gap_pct": "Lücke Median %", "p90_pct": "Lücke P90 %",
@@ -297,6 +304,37 @@ with st.expander("Warum der Median und nicht der Durchschnitt?"):
         }),
         use_container_width=True, hide_index=True,
     )
+
+with st.expander("Entwicklung über die Zulassungsjahrgänge"):
+    st.caption(
+        "Hier steht je Jahrgang ein eigener Median. Diese Werte lassen sich "
+        "nicht zu einem Gesamtmedian mitteln — deshalb sind die Kennzahlen "
+        "oben getrennt gerechnet."
+    )
+    verlauf = lies(f"""
+        SELECT jahr, antriebsklasse, fahrzeuge, median_gap_pct
+        FROM mart.a4_luecke
+        WHERE land = '{land}' AND fahrzeuge >= 500
+        ORDER BY jahr, antriebsklasse
+    """)
+    if verlauf.empty:
+        st.info("Keine Jahrgangsdaten für dieses Land.")
+    else:
+        vl = px.line(
+            verlauf, x="jahr", y="median_gap_pct", color="antriebsklasse",
+            markers=True,
+            labels={"jahr": "Zulassungsjahrgang",
+                    "median_gap_pct": "Lücke in Prozent",
+                    "antriebsklasse": ""},
+        )
+        vl.update_layout(
+            plot_bgcolor=PAPIER, paper_bgcolor=PAPIER,
+            font=dict(color=ASPHALT, size=12), height=340,
+            margin=dict(l=10, r=10, t=30, b=10),
+        )
+        vl.update_xaxes(gridcolor="#E0DBCC", dtick=1)
+        vl.update_yaxes(gridcolor="#E0DBCC")
+        st.plotly_chart(vl, use_container_width=True)
 
 st.divider()
 

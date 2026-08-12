@@ -106,6 +106,50 @@ WHERE land = 'DE' AND eea_verwendbar AND hat_mindestlauf AND gap_pct IS NOT NULL
 GROUP BY antriebsklasse
 ORDER BY count(*) DESC;
 
+-- -----------------------------------------------------------------------------
+-- mart.a4_luecke_gepoolt — die massgebliche Ergebnistabelle
+--
+-- Warum es diese Tabelle zusaetzlich braucht: mart.a4_luecke haelt einen Median
+-- JE ZULASSUNGSJAHRGANG. Wer daraus einen Gesamtwert bilden will, kann nur den
+-- Mittelwert der Jahresmediane nehmen — und der gewichtet 2023 mit 27.000
+-- Fahrzeugen genauso stark wie 2022 mit 120.000. Genau diese Abweichung war in
+-- der Streamlit-Anwendung sichtbar: 352,9 % statt der berichteten 320,7 %.
+--
+-- Der Median laesst sich nicht nachtraeglich aus Teilmedianen zusammensetzen.
+-- Er muss ueber die Einzelfahrzeuge gerechnet werden. Deshalb diese Tabelle:
+-- Bericht, Praesentation und Anwendung lesen ab jetzt dieselbe Quelle.
+-- -----------------------------------------------------------------------------
+DROP TABLE IF EXISTS mart.a4_luecke_gepoolt;
+CREATE TABLE mart.a4_luecke_gepoolt AS
+SELECT land,
+       antriebsklasse,
+       count(*)                                                              AS fahrzeuge,
+       round(percentile_cont(0.5) WITHIN GROUP (ORDER BY fc_real)::numeric, 2)  AS real_l,
+       round(percentile_cont(0.5) WITHIN GROUP (ORDER BY fc_wltp)::numeric, 2)  AS wltp_l,
+       round(percentile_cont(0.5) WITHIN GROUP (ORDER BY gap_abs)::numeric, 2)  AS gap_l,
+       round(percentile_cont(0.5) WITHIN GROUP (ORDER BY gap_pct)::numeric, 1)  AS gap_median_pct,
+       round(percentile_cont(0.9) WITHIN GROUP (ORDER BY gap_pct)::numeric, 1)  AS gap_p90_pct,
+       round(percentile_cont(0.1) WITHIN GROUP (ORDER BY gap_pct)::numeric, 1)  AS gap_p10_pct,
+       round(percentile_cont(0.5) WITHIN GROUP (ORDER BY anteil_elektrisch)::numeric, 1) AS e_anteil_pct,
+       round(percentile_cont(0.5) WITHIN GROUP (ORDER BY dist_total_km)::numeric, 0) AS laufleistung_km,
+       min(jahr)                                                             AS jahr_von,
+       max(jahr)                                                             AS jahr_bis
+FROM core.realworld
+WHERE eea_verwendbar AND hat_mindestlauf AND gap_pct IS NOT NULL
+GROUP BY land, antriebsklasse;
+
+CREATE INDEX ix_a4g ON mart.a4_luecke_gepoolt (land, antriebsklasse);
+COMMENT ON TABLE mart.a4_luecke_gepoolt IS 'A4 — Realverbrauchsluecke je Land und Antriebsklasse, Median ueber ALLE Zulassungsjahrgaenge gemeinsam. Massgeblich fuer Bericht, Praesentation und Anwendung. mart.a4_luecke ist die Aufschluesselung nach Jahrgang und liefert bei nachtraeglicher Mittelung abweichende Werte.';
+
+ANALYZE mart.a4_luecke_gepoolt;
+
+\echo ''
+\echo '=== Kontrolle: stimmt die gepoolte Tabelle mit A4a2 ueberein? ============='
+SELECT antriebsklasse, fahrzeuge, real_l, wltp_l, gap_median_pct, gap_p90_pct
+FROM mart.a4_luecke_gepoolt
+WHERE land = 'DE'
+ORDER BY fahrzeuge DESC;
+
 \echo ''
 \echo '=== A4b · Die Luecke im Zeitverlauf (Zulassungsjahrgang) =================='
 SELECT jahr, antriebsklasse, sum(fahrzeuge) AS n,
