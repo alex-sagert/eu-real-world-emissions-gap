@@ -25,7 +25,7 @@ SET work_mem = '256MB';
 SET max_parallel_workers_per_gather = 4;
 
 -- Mindestmenge je Hersteller. Unter dieser Grenze schwankt der Median so stark,
--- dass eine Rangfolge nur Rauschen abbildet. Die Grenze wird im NvS genannt.
+-- dass eine Rangfolge nur Rauschen abbildet. Die Grenze wird im Bericht genannt.
 \set mindest 3000
 
 -- =============================================================================

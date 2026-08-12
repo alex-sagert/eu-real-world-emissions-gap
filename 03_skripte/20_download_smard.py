@@ -16,7 +16,7 @@ Aufruf:
     .\\.venv\\Scripts\\python.exe .\\03_skripte\\20_download_smard.py --von 2021 --bis 2025
     .\\.venv\\Scripts\\python.exe .\\03_skripte\\20_download_smard.py --pruefe-ids
 
-Projektwoche Big Data · educX · Alexander Sagert · 08/2026
+Alexander Sagert · 08/2026
 """
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ BASIS = "https://www.smard.de/app/chart_data"
 # ACHTUNG: Diese Zuordnung ist NICHT amtlich dokumentiert, sondern aus der
 # SMARD-Weboberfläche und der Community-Dokumentation (smard.api.bund.dev)
 # übernommen. Sie wird deshalb beim Lauf gegen Plausibilitätsregeln geprüft
-# (--pruefe-ids), und das Ergebnis dieser Prüfung gehört ins NvS.
+# (--pruefe-ids), und das Ergebnis dieser Prüfung gehört in den Bericht.
 #
 # Prüfregeln, die eine Verwechslung auffliegen ließen:
 #   * Photovoltaik muss nachts exakt 0 sein und mittags ein Maximum haben
@@ -81,7 +81,7 @@ def log(t: str) -> None:
 class Smard:
     def __init__(self, retries: int = 4, timeout: int = 120):
         self.s = requests.Session()
-        self.s.headers.update({"User-Agent": "educX-BigData-Projektwoche/1.0"})
+        self.s.headers.update({"User-Agent": "eu-real-world-emissions-gap/1.0"})
         self.retries, self.timeout = retries, timeout
 
     def get(self, url: str):
@@ -205,7 +205,7 @@ def main() -> int:
         f"{time.strftime('%H:%M:%S', time.gmtime(time.time() - t0))}")
     log(f"Datei: {ziel}")
     log("Weiter mit: 10_run_sql.ps1 -File ..\\02_sql\\13_smard_staging.sql")
-    log('Quellenangabe fuer NvS und App: "Bundesnetzagentur | SMARD.de", CC-BY-4.0')
+    log('Quellenangabe fuer Bericht und App: "Bundesnetzagentur | SMARD.de", CC-BY-4.0')
     return 0
 
 

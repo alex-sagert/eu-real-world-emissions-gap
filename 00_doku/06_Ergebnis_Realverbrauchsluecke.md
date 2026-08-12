@@ -5,7 +5,7 @@ Fassung `eea_t_real-world-co2-emission_p_2024_v03_r00`, DOI 10.2909/7472e340-276
 
 > **Vorläufigkeitsvermerk.** Die Zahlen unten stammen aus einer Vorab-Auswertung der
 > Rohdatei, noch nicht aus der PostgreSQL-Pipeline. Sie werden mit `41_analysen_A4_A5.sql`
-> reproduziert, sobald `core.realworld` geladen ist. Erst die dortigen Werte gehen ins NvS.
+> reproduziert, sobald `core.realworld` geladen ist. Erst die dortigen Werte gehen in den Bericht.
 > Die Methodik ist identisch, Abweichungen wären ein Fehlersignal.
 
 ---
@@ -22,7 +22,7 @@ Fassung `eea_t_real-world-co2-emission_p_2024_v03_r00`, DOI 10.2909/7472e340-276
 | Ohne WLTP-Referenzwert (`Fuel consumption` leer) | 552.870 |
 | Deutschland | **1.977.119** — größter Einzelmarkt vor FR (1.462.653) und IT (1.247.416) |
 
-**Filterentscheidungen, beide begründungspflichtig im NvS:**
+**Filterentscheidungen, beide begründungspflichtig im Bericht:**
 
 1. **`Used in calculation = 1` wird übernommen.** Die EEA hat die Plausibilitätsprüfung
    bereits vorgenommen; sie zu ignorieren wäre eine stillschweigende Abweichung von der

@@ -21,7 +21,7 @@
 -- dauert ein Vielfaches. Die Anhebung gilt nur fuer diese Sitzung, die
 -- Serverkonfiguration bleibt unangetastet.
 --
--- Der Effekt gehoert ins NvS: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
+-- Der Effekt gehoert in den Bericht: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
 -- als Wechsel von "external merge Disk" zu "quicksort Memory".
 -- -----------------------------------------------------------------------------
 SET work_mem = '256MB';
@@ -92,7 +92,7 @@ $$;
 --
 -- Bekannte Unschärfe: Behördenkennungen wie e29, e32, e34 kollidieren mit
 -- Technologienummern 29, 32, 34. Ein Token 'e529' wird deshalb komplett
--- verworfen, statt zu raten. Betrifft in 2025 genau 1 Satz. Wird im NvS genannt.
+-- verworfen, statt zu raten. Betrifft in 2025 genau 1 Satz. Wird im Bericht genannt.
 -- -----------------------------------------------------------------------------
 
 -- Whitelist der in den Daten tatsächlich auftretenden Technologienummern.

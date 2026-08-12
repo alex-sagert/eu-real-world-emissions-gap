@@ -80,7 +80,7 @@ CREATE UNLOGGED TABLE raw.co2cars_hist_massen (
     avg_enedc   text,
     avg_kw      text
 );
-COMMENT ON TABLE raw.co2cars_hist_massen IS 'Massen-Histogramm je Land/Jahr/Antrieb in 50-kg-Klassen, 2010–2020. Vorverdichtung an der Quelle statt 100 Mio. Einzelzeilen — begründet im NvS.';
+COMMENT ON TABLE raw.co2cars_hist_massen IS 'Massen-Histogramm je Land/Jahr/Antrieb in 50-kg-Klassen, 2010–2020. Vorverdichtung an der Quelle statt 100 Mio. Einzelzeilen — begründet im Bericht.';
 
 -- -----------------------------------------------------------------------------
 -- Zuordnung Jahr → EEA-Tabellenname (Reproduzierbarkeit)

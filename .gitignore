@@ -32,6 +32,12 @@ _archiv/
 06_abgabe/*CAT*
 06_abgabe/*NvS*
 
+# Kursbezogenes: das Packskript fuer die Hochschulabgabe und die
+# Arbeitsanleitung, die ich mir selbst geschrieben habe. Beides hat mit der
+# Analyse nichts zu tun.
+03_skripte/91_abgabe_packen.ps1
+04_knime/KNIME_Anleitung.md
+
 # KNIME: nur die lauffaehige Endfassung, keine Zwischenstaende
 04_knime/*_v[0-9].knwf
 04_knime/basis.knwf

@@ -79,8 +79,8 @@ Zwei Ursachen, beide relevant für die Dokumentation:
    „10 Aug 2026".
 2. Die Kategorie `unknown` (9 Zeilen) fehlte in der Aufstellung des Start-Prompts.
 
-**Konsequenz für die Arbeit:** Der Ladezeitpunkt wird protokolliert und im NvS genannt.
-Alle Zahlen im CAT/NvS beziehen sich auf den Stand des tatsächlichen Ladelaufs, nicht auf
+**Konsequenz für die Arbeit:** Der Ladezeitpunkt wird protokolliert und im Bericht genannt.
+Alle Zahlen im CAT/Bericht beziehen sich auf den Stand des tatsächlichen Ladelaufs, nicht auf
 den Stand der Vorbereitung. Zusätzlich wird die Tabellenversion (`v24`…`v31`) mitgeführt.
 
 ## 4 — Erste Auffälligkeiten in den Rohdaten
@@ -108,7 +108,7 @@ dass provisorische Jahrgänge nicht ohne Vorbehalt verwendet werden dürfen.
 
 NO fällt von 174.107 (2022) auf 126.932 (2023) und steigt 2025 wieder auf 179.394.
 Das ist **kein** Datenfehler, sondern die bekannte Reaktion auf die Änderung der
-norwegischen Fahrzeugbesteuerung. Wird im NvS als Kontextinformation eingeordnet, nicht
+norwegischen Fahrzeugbesteuerung. Wird im Bericht als Kontextinformation eingeordnet, nicht
 als Ausreißer behandelt.
 
 ### 4.4 Fehlende Werte in der Stichprobe
@@ -161,7 +161,7 @@ CSV-Direktdownload** mehr. Angeboten werden nur:
 Die alte URL `eea.europa.eu/data-and-maps/data/co2-cars-emission-22` leitet auf den
 Datahub-Eintrag um. Der REST-Endpunkt ist damit **nicht die bequeme, sondern die einzige**
 Bezugsquelle für Rohdaten auf Fahrzeugebene — was den Aufbau der Ladepipeline zur
-eigentlichen Data-Engineering-Leistung des Projekts macht und im NvS so beschrieben wird.
+eigentlichen Data-Engineering-Leistung des Projekts macht und im Bericht so beschrieben wird.
 
 Für OBFCM (Art. 12) gilt das Gegenteil: Dort gibt es einen echten Direktdownload
 (Nextcloud-Share der EEA, ~1,5 GB), siehe Steckbrief.

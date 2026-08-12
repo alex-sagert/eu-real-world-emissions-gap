@@ -66,7 +66,7 @@ function Get-FileWithResume {
     }
 
     $req = [Net.HttpWebRequest]::Create($Url)
-    $req.UserAgent = 'educX-BigData-Projektwoche/1.0 (+Reproduktionsskript)'
+    $req.UserAgent = 'eu-real-world-emissions-gap/1.0 (+Reproduktionsskript)'
     $req.Timeout   = 120000
     $req.ReadWriteTimeout = 600000
     if ($existing -gt 0) { $req.AddRange([int64]$existing) }

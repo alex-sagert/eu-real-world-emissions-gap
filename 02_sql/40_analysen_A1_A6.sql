@@ -29,7 +29,7 @@
 -- dauert ein Vielfaches. Die Anhebung gilt nur fuer diese Sitzung, die
 -- Serverkonfiguration bleibt unangetastet.
 --
--- Der Effekt gehoert ins NvS: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
+-- Der Effekt gehoert in den Bericht: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
 -- als Wechsel von "external merge Disk" zu "quicksort Memory".
 -- -----------------------------------------------------------------------------
 SET work_mem = '256MB';
@@ -102,7 +102,7 @@ ORDER BY antriebsklasse, ms_code, jahr;
 --
 -- Wichtig für die Interpretation: Der "EU-Durchschnitt" ist hier der
 -- Durchschnitt der SECHS geladenen Länder (rund 72 % der EU-Neuzulassungen),
--- nicht der EU-27. Das steht so im NvS.
+-- nicht der EU-27. Das steht so im Bericht.
 -- =============================================================================
 DROP TABLE IF EXISTS mart.a2_de_vs_eu;
 CREATE TABLE mart.a2_de_vs_eu AS
@@ -148,7 +148,7 @@ ORDER BY antriebsklasse, jahr;
 --
 --     Ziel = Basisziel + a * (Prüfmasse - M0)
 --
--- Die Parameter stehen in einer eigenen Tabelle und sind damit im NvS
+-- Die Parameter stehen in einer eigenen Tabelle und sind damit im Bericht
 -- nachvollziehbar und einzeln korrigierbar. Sie sind ausdrücklich als
 -- Näherung gekennzeichnet und dürfen NICHT als amtlicher Zielwert zitiert
 -- werden. Vor der Abgabe gegen den Verordnungstext prüfen.
@@ -248,7 +248,7 @@ GROUP BY jahr ORDER BY jahr;
 -- Konstruktion: AVG() OVER (ORDER BY jahr ROWS BETWEEN 2 PRECEDING AND CURRENT ROW).
 -- Die Zeitreihe 2010–2020 kommt aus dem an der Quelle vorverdichteten
 -- Massenhistogramm, 2021–2025 aus der Faktentabelle. Beide Teile werden
--- getrennt gekennzeichnet, damit im NvS klar ist, wo die Datenbasis wechselt.
+-- getrennt gekennzeichnet, damit im Bericht klar ist, wo die Datenbasis wechselt.
 -- =============================================================================
 DROP TABLE IF EXISTS mart.a6_gewichtsspirale;
 CREATE TABLE mart.a6_gewichtsspirale AS

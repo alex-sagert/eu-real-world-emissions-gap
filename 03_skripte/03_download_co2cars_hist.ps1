@@ -12,7 +12,7 @@
     aus dem sich lokal Median, Perzentile und massengewichtete Mittel exakt genug
     rekonstruieren lassen - bei wenigen zehntausend Zeilen statt 100 Mio.
 
-    Diese Entscheidung wird im NvS unter Methodik begruendet.
+    Diese Entscheidung wird im Bericht unter Methodik begruendet.
 
     Schritt 1 des Skripts ermittelt ausserdem die Tabellennamen der Altjahrgaenge durch
     Probing, weil DiscoData die Systemtabellen sperrt und der Datahub nur den aktuellen

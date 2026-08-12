@@ -5,7 +5,7 @@
 .BESCHREIBUNG
     Ein Aufruf statt neun. Jeder Schritt schreibt seine Ausgabe nach 00_doku,
     die Laufzeiten landen in 00_doku\_laufzeiten.csv - und genau die gehören
-    ins NvS.
+    in den Bericht.
 
     Bricht ein Schritt ab, hält die Kette an und nennt die Datei mit dem Fehler.
     Mit -Ab kann danach ab genau diesem Schritt fortgesetzt werden, ohne den
@@ -148,7 +148,7 @@ $ergebnisse | Format-Table -AutoSize
 
 $ergebnisse | Export-Csv -LiteralPath (Join-Path $doku '_laufzeiten.csv') -NoTypeInformation -Encoding UTF8
 Write-Host ''
-Write-Host 'Laufzeiten fuer das NvS: 00_doku\_laufzeiten.csv' -ForegroundColor Green
+Write-Host 'Laufzeiten fuer den Bericht: 00_doku\_laufzeiten.csv' -ForegroundColor Green
 Write-Host 'Als Naechstes pruefen:' -ForegroundColor Green
 Write-Host '  1. 30_star_ausgabe.txt      - Zeilenkontrolle core gegen star muss 0 zeigen'
 Write-Host '  2. 41_analysen_A4_A5_ausgabe.txt - muss +16,0 % und +317,8 % reproduzieren'

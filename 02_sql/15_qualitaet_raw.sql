@@ -3,7 +3,7 @@
 --   psql -U postgres -d bd_co2 -f 02_sql\15_qualitaet_raw.sql
 --
 -- Datenqualitätsanalyse VOR der Typisierung. Befunde landen in meta.dq_befund
--- und werden im NvS berichtet — auch die unangenehmen. Es wird hier nichts
+-- und werden im Bericht berichtet — auch die unangenehmen. Es wird hier nichts
 -- gefiltert, nur gemessen.
 -- =============================================================================
 

@@ -208,4 +208,4 @@ ich die Ausgaben gelesen und Größenordnungen geprüft habe.
 | `03_skripte/` | Download-, Lade- und Steuerskripte |
 | `04_knime/` | Der KNIME-Workflow und die Anleitung dazu |
 | `05_visualisierung/` | Diagramme und Datenbankmodelle als Bilder |
-| `06_abgabe/` | CAT, NvS, Präsentation |
+| `06_abgabe/` | CAT, Bericht, Präsentation |

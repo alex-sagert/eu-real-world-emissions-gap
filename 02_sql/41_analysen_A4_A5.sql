@@ -27,7 +27,7 @@
 -- dauert ein Vielfaches. Die Anhebung gilt nur fuer diese Sitzung, die
 -- Serverkonfiguration bleibt unangetastet.
 --
--- Der Effekt gehoert ins NvS: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
+-- Der Effekt gehoert in den Bericht: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
 -- als Wechsel von "external merge Disk" zu "quicksort Memory".
 -- -----------------------------------------------------------------------------
 SET work_mem = '256MB';
@@ -81,7 +81,7 @@ GROUP BY antriebsklasse ORDER BY fahrzeuge DESC;
 -- -----------------------------------------------------------------------------
 -- A4a2 · Gepoolter Median, nicht Mittelwert der Jahresmediane
 --
--- WICHTIG fuer das NvS. Die Abfrage darueber bildet avg() ueber die
+-- WICHTIG fuer den Bericht. Die Abfrage darueber bildet avg() ueber die
 -- Jahresmediane - jeder Zulassungsjahrgang zaehlt dort gleich viel, egal ob er
 -- 20.000 oder 120.000 Fahrzeuge umfasst. Die Vorab-Auswertung in
 -- 06_Ergebnis_Realverbrauchsluecke.md hat dagegen den Median ueber alle
@@ -89,7 +89,7 @@ GROUP BY antriebsklasse ORDER BY fahrzeuge DESC;
 --
 -- Beide Zahlen sind richtig, sie beantworten nur verschiedene Fragen. Weil die
 -- Abweichung sonst wie ein Pipelinefehler aussieht, wird sie hier explizit
--- nebeneinander gestellt. Ins NvS geht der gepoolte Median: er gewichtet jedes
+-- nebeneinander gestellt. In den Bericht geht der gepoolte Median: er gewichtet jedes
 -- Fahrzeug gleich, und genau das ist die Aussage von H1.
 -- -----------------------------------------------------------------------------
 \echo ''

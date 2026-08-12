@@ -19,7 +19,7 @@ Aufruf:
 Ergebnis:
     04_knime\\Papier_gegen_Strasse.knwf   -> in KNIME importieren
 
-Projektwoche Big Data · educX · Alexander Sagert · 08/2026
+Alexander Sagert · 08/2026
 """
 
 from __future__ import annotations
@@ -79,7 +79,7 @@ ORDER BY zulassungen DESC"""
 # Ausreissergrenze -50 bis 900 Prozent: Ein Regressionsmodell auf einer
 # Zielgroesse mit extremen Ausreissern lernt die Ausreisser statt den
 # Zusammenhang. Die Grenze schneidet unter einem Prozent der Saetze ab und
-# wird im NvS genannt.
+# wird im Bericht genannt.
 # KORREKTUR 12.08.2026 - der Numeric Scorer brach ab mit
 # "Missing value in prediction column in row: Row4".
 #
@@ -459,12 +459,12 @@ UNTEN  Dasselbe Modell NUR innerhalb der Plug-in-Hybride. Hier wird es
        gefahrene Anteil erklaeren am meisten.
 
 REPRODUZIERBARKEIT: Partitionierung 70/30 mit festem Seed 1234. Ohne festen
-Seed ist die Modellguete bei jedem Lauf leicht anders und die Zahl im NvS
+Seed ist die Modellguete bei jedem Lauf leicht anders und die Zahl im Bericht
 nicht belegbar.
 
 FILTER: gap_pct auf -50 bis 900 Prozent begrenzt. Ein Modell auf einer
 Zielgroesse mit extremen Ausreissern lernt die Ausreisser statt den
-Zusammenhang. Betrifft unter ein Prozent der Saetze, im NvS genannt.
+Zusammenhang. Betrifft unter ein Prozent der Saetze, im Bericht genannt.
 
 NOCH ZU ERGAENZEN (von Hand, je 2 Minuten):
   - Bar Chart an Knoten 3: Luecke in Prozent je Antriebsklasse

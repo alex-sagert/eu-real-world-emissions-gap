@@ -9,7 +9,7 @@
 -- Die Lösung war, diese Zeilen in SQL auszuschließen statt Werte zu erfinden.
 -- Ein Ausschluss ist aber nur dann zulässig, wenn beziffert wird, was er kostet
 -- und ob er die Stichprobe verzerrt. Genau das steht hier — und gehört so ins
--- NvS, nicht als Nebensatz.
+-- Bericht, nicht als Nebensatz.
 -- =============================================================================
 
 \set ON_ERROR_STOP on
@@ -96,4 +96,4 @@ WHERE eea_verwendbar AND hat_mindestlauf AND gap_pct IS NOT NULL
   AND antriebsklasse = 'PHEV';
 
 \echo ''
-\echo '>>> Diese Zahlen gehoeren in das Kapitel Datenaufbereitung des NvS.'
+\echo '>>> Diese Zahlen gehoeren in das Kapitel Datenaufbereitung.'

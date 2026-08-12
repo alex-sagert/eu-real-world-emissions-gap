@@ -26,7 +26,7 @@
 -- dauert ein Vielfaches. Die Anhebung gilt nur fuer diese Sitzung, die
 -- Serverkonfiguration bleibt unangetastet.
 --
--- Der Effekt gehoert ins NvS: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
+-- Der Effekt gehoert in den Bericht: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
 -- als Wechsel von "external merge Disk" zu "quicksort Memory".
 -- -----------------------------------------------------------------------------
 SET work_mem = '256MB';

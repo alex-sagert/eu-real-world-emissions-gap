@@ -3,7 +3,7 @@
 --   psql -U postgres -d bd_co2 -f 02_sql\01_schemas.sql
 --
 -- Vier Schichten. Die Trennung ist kein Selbstzweck: sie macht jeden Schritt
--- vom Rohtext bis zur Kennzahl im NvS nachvollziehbar und rettet den Lauf,
+-- vom Rohtext bis zur Kennzahl im Bericht nachvollziehbar und rettet den Lauf,
 -- wenn ein CSV kaputte Zeilen enthält.
 -- =============================================================================
 
@@ -16,7 +16,7 @@ CREATE SCHEMA IF NOT EXISTS mart;   COMMENT ON SCHEMA mart IS 'vorberechnete Agg
 CREATE SCHEMA IF NOT EXISTS meta;   COMMENT ON SCHEMA meta IS 'Ladeprotokoll, Datenqualitätsbefunde, Quellenversionen';
 
 -- -----------------------------------------------------------------------------
--- Ladeprotokoll: jeder Ladelauf wird protokolliert, damit im NvS steht, mit
+-- Ladeprotokoll: jeder Ladelauf wird protokolliert, damit im Bericht steht, mit
 -- welchem Quellstand welche Zahl entstanden ist. Die Jahrgänge 2024/2025 sind
 -- provisional und ändern sich zwischen zwei Läufen.
 -- -----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS meta.load_log (
     geladen_am     timestamptz NOT NULL DEFAULT now(),
     bemerkung      text
 );
-COMMENT ON TABLE meta.load_log IS 'Ein Eintrag je geladener Quelldatei. Belegpflicht für CAT/NvS.';
+COMMENT ON TABLE meta.load_log IS 'Ein Eintrag je geladener Quelldatei. Belegpflicht für CAT/Bericht.';
 
 -- -----------------------------------------------------------------------------
 -- Datenqualitätsbefunde: maschinell erzeugt von 15_qualitaet_raw.sql.
@@ -52,6 +52,6 @@ CREATE TABLE IF NOT EXISTS meta.dq_befund (
     kommentar   text,
     geprueft_am timestamptz NOT NULL DEFAULT now()
 );
-COMMENT ON TABLE meta.dq_befund IS 'Ergebnisse der Datenqualitätsprüfungen, Grundlage des Qualitätskapitels im NvS.';
+COMMENT ON TABLE meta.dq_befund IS 'Ergebnisse der Datenqualitätsprüfungen, Grundlage des Qualitätskapitels im Bericht.';
 
 \echo 'Schemata raw, core, star, mart, meta angelegt.'

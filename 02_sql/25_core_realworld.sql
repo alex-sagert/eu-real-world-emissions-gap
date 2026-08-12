@@ -4,7 +4,7 @@
 --
 -- Typisierung der Realverbrauchsdaten und Berechnung der Lücke je Fahrzeug.
 -- Alle Filterentscheidungen stehen als Spalte in der Tabelle, damit sie in der
--- Analyse ein- und ausschaltbar sind und im NvS begründet werden können.
+-- Analyse ein- und ausschaltbar sind und im Bericht begründet werden können.
 -- =============================================================================
 
 \set ON_ERROR_STOP on
@@ -19,7 +19,7 @@
 -- dauert ein Vielfaches. Die Anhebung gilt nur fuer diese Sitzung, die
 -- Serverkonfiguration bleibt unangetastet.
 --
--- Der Effekt gehoert ins NvS: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
+-- Der Effekt gehoert in den Bericht: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
 -- als Wechsel von "external merge Disk" zu "quicksort Memory".
 -- -----------------------------------------------------------------------------
 SET work_mem = '256MB';
@@ -152,7 +152,7 @@ FROM raw.obfcm_cars o;
 -- Befunde protokollieren
 -- -----------------------------------------------------------------------------
 -- Wie extrem wird es bei Kleinstlaufleistungen wirklich? Die Zahl gehoert ins
--- NvS als Begruendung fuer die Mindestlaufleistung und fuer den Verzicht auf
+-- Bericht als Begruendung fuer die Mindestlaufleistung und fuer den Verzicht auf
 -- eine Stellenbegrenzung in der Tabellendefinition.
 INSERT INTO meta.dq_befund (schicht, objekt, spalte, pruefung, ergebnis, einheit, bewertung, kommentar)
 SELECT 'core', 'realworld', 'dist_total_km',
@@ -182,7 +182,7 @@ FROM core.realworld WHERE gap_pct > 5000;
 INSERT INTO meta.dq_befund (schicht, objekt, spalte, pruefung, ergebnis, einheit, bewertung, kommentar)
 SELECT 'core', 'realworld', 'used_in_calc', 'Von der EEA als nicht verwendbar markiert',
        count(*) FILTER (WHERE NOT eea_verwendbar), 'Zeilen', 'auffaellig',
-       'Plausibilitaetspruefung der EEA wird uebernommen, Anteil wird im NvS genannt'
+       'Plausibilitaetspruefung der EEA wird uebernommen, Anteil wird im Bericht genannt'
 FROM core.realworld
 UNION ALL
 SELECT 'core', 'realworld', 'dist_total_km', 'Laufleistung unter 1000 km',

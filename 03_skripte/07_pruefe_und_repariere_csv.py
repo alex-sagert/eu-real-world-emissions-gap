@@ -23,7 +23,7 @@ Was dieses Skript tut
    tatsächlichen Schreibstand lag. Entfernt werden sie NICHT hier, sondern in der
    core-Schicht: dort ist es dokumentierbar und in SQL nachvollziehbar.
 
-Der Bericht landet in 00_doku/csv_reparatur_bericht.txt und gehört ins NvS.
+Der Bericht landet in 00_doku/csv_reparatur_bericht.txt und gehört in den Bericht.
 
 Aufruf:
     .\\.venv\\Scripts\\python.exe .\\03_skripte\\07_pruefe_und_repariere_csv.py

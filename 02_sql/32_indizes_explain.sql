@@ -10,7 +10,7 @@
 --   B) Indizes anlegen — ERST JETZT, nach dem Laden — und der Vorher/Nachher-
 --      Vergleich für dieselbe Query.
 --
--- Die Ausgabe dieser Datei geht als Beleg ins NvS. Die Laufzeiten bitte aus der
+-- Die Ausgabe dieser Datei geht als Beleg in den Bericht. Die Laufzeiten bitte aus der
 -- Ausgabedatei ins LOGBUCH.md übertragen.
 -- =============================================================================
 
@@ -26,7 +26,7 @@
 -- dauert ein Vielfaches. Die Anhebung gilt nur fuer diese Sitzung, die
 -- Serverkonfiguration bleibt unangetastet.
 --
--- Der Effekt gehoert ins NvS: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
+-- Der Effekt gehoert in den Bericht: Er ist mit EXPLAIN (ANALYZE, BUFFERS) sichtbar
 -- als Wechsel von "external merge Disk" zu "quicksort Memory".
 -- -----------------------------------------------------------------------------
 SET work_mem = '256MB';

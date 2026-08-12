@@ -18,7 +18,7 @@ Aufruf (aus dem Projektordner):
     .\\.venv\\Scripts\\python.exe .\\03_skripte\\06_download_co2cars.py --years 2021 2022
     .\\.venv\\Scripts\\python.exe .\\03_skripte\\06_download_co2cars.py --force
 
-Projektwoche Big Data · educX · Alexander Sagert · 08/2026
+Alexander Sagert · 08/2026
 """
 
 from __future__ import annotations
@@ -81,7 +81,7 @@ class Disco:
 
     def __init__(self, retries: int = 5, timeout: int = 600):
         self.s = requests.Session()
-        self.s.headers.update({"User-Agent": "educX-BigData-Projektwoche/1.0"})
+        self.s.headers.update({"User-Agent": "eu-real-world-emissions-gap/1.0"})
         self.retries = retries
         self.timeout = timeout
 

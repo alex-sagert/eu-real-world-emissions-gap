@@ -408,7 +408,7 @@ foreach ($year in $Years) {
 
             # Einmal je Jahrgang pruefen, ob die Quelle wirklich alle
             # angeforderten Spalten liefert. Stillschweigend leere Spalten
-            # waeren genau die Art Fehler, die erst im NvS auffaellt.
+            # waeren genau die Art Fehler, die erst im Bericht auffaellt.
             if (-not $schemaGeprueft -and $rows.Count -gt 0) {
                 $vorhanden = @($rows[0].PSObject.Properties.Name)
                 $fehlend   = @($Columns.Values | Where-Object { $vorhanden -notcontains $_ })

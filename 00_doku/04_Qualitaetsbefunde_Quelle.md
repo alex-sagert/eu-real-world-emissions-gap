@@ -28,7 +28,7 @@ bei 2.948.208 — es fehlen **165.127 Fahrzeuge (5,3 % der elektrifizierten Flot
 
 Das ist relevant, weil `Z (Wh/km)` die Eingangsgröße für den Well-to-Wheel-Vergleich mit dem
 SMARD-Strommix ist. Konsequenz: Der Well-to-Wheel-Teil läuft auf einer um 5,3 % reduzierten
-Grundgesamtheit. Wird im NvS offengelegt, statt die Lücke zu imputieren.
+Grundgesamtheit. Wird im Bericht offengelegt, statt die Lücke zu imputieren.
 
 ## B2 · Fahrzeugklasse `Ct` — Fremdkörper im Pkw-Datensatz
 
@@ -47,7 +47,7 @@ SELECT Ct AS ct, COUNT(*) AS n FROM [CO2Emission].[latest].[co2cars_2025Pv31] GR
 
 **Filterentscheidung:** `Ct IN ('M1','M1G')`. Damit fallen **691 Zeilen** heraus.
 M1G bleibt drin, weil es fachlich Pkw sind und die Ausschlussgrenze sonst willkürlich wird.
-Die 691 ausgeschlossenen Zeilen werden gezählt und im NvS genannt — nicht kommentarlos
+Die 691 ausgeschlossenen Zeilen werden gezählt und im Bericht genannt — nicht kommentarlos
 weggefiltert.
 
 ## B3 · `R` — keine Aggregation in der Quelle
@@ -123,7 +123,7 @@ beschreibt — genau das, worum es bei der Realverbrauchslücke geht.
 |---|---|
 | `Ewltp` und `M (kg)` sind nicht null-frei | Staging-Spalten bleiben TEXT, `NULL ''` beim `COPY`; Nullbehandlung erst in `core` |
 | `IT` ist Leerstring statt NULL | in `core` explizit auf NULL normalisieren |
-| `Z (Wh/km)` fehlt bei 5,3 % der elektrifizierten Fahrzeuge | Well-to-Wheel auf reduzierter Grundgesamtheit, Anteil im NvS nennen |
+| `Z (Wh/km)` fehlt bei 5,3 % der elektrifizierten Fahrzeuge | Well-to-Wheel auf reduzierter Grundgesamtheit, Anteil im Bericht nennen |
 | 691 Zeilen mit falscher Fahrzeugklasse | Filter `Ct IN ('M1','M1G')` in `core`, Ausschlusszahl protokollieren |
 | `R = 1` durchgehend | keine Gewichtung nötig, Prüfung je Jahrgang wiederholen |
 | `Fm` trennt Hybrid von PHEV, `Ft` nicht | `dim_powertrain` über `Ft × Fm`, Antriebsklasse mit fünf Ausprägungen |

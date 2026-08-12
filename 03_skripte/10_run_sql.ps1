@@ -64,7 +64,7 @@ try {
     if ($OutFile) {
         # Bewusst nicht Tee-Object: das schreibt unter Windows PowerShell 5.1
         # UTF-16 mit Nullbytes zwischen jedem Zeichen. Die Ausgaben sollen aber
-        # zitierfaehig ins NvS und in ein Git-Repo - also UTF-8.
+        # zitierfaehig in den Bericht und in ein Git-Repo - also UTF-8.
         # Der Umweg ueber Write-Host haelt die Live-Ausgabe auf dem Bildschirm.
         & $PsqlExe @psqlArgs 2>&1 |
             ForEach-Object { $zeile = "$_"; Write-Host $zeile; $zeile } |

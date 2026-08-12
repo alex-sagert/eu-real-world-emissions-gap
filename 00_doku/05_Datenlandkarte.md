@@ -204,7 +204,7 @@ Quelle: `01_daten\referenz\kreuztabelle_ft_fm_2025.csv`
    Kontraintuitiv, bis man auf die Masse sieht: 1983 gegen 1712 kg. Hybridisierung landet
    im Diesel fast nur in schweren SUVs und Oberklassewagen. Das ist H4 im Kleinen.
 3. **Der PHEV ist mit 1981 kg schwerer als das durchschnittliche BEV (1970 kg)** — er
-   schleppt zwei komplette Antriebsstränge mit. Ein Argument, das im NvS in die Diskussion
+   schleppt zwei komplette Antriebsstränge mit. Ein Argument, das im Bericht in die Diskussion
    gehört.
 
 Die E85-Diskrepanz löst sich hier ebenfalls auf: 11.705 der 12.384 E85-Fahrzeuge tragen

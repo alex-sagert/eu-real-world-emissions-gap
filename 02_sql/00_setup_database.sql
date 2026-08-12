@@ -1,6 +1,6 @@
 -- =============================================================================
 -- 00_setup_database.sql
--- Papier gegen Straße · Big-Data-Projektwoche educX · Alexander Sagert
+-- Papier gegen Straße · Alexander Sagert · 2026
 --
 -- Läuft gegen die Wartungsdatenbank "postgres", NICHT gegen bd_co2.
 --   psql -U postgres -d postgres -f 02_sql\00_setup_database.sql
@@ -23,4 +23,4 @@ CREATE DATABASE bd_co2
          TEMPLATE     = template0
          CONNECTION LIMIT = -1;
 
-COMMENT ON DATABASE bd_co2 IS 'Papier gegen Straße — EEA co2cars (VO 2019/631 Art. 7) und OBFCM-Realverbrauch (Art. 12), Fokusländer DE/FR/IT/ES/NL/NO, Jahrgänge 2021–2025. educX Big-Data-Projektwoche 08/2026.';
+COMMENT ON DATABASE bd_co2 IS 'Papier gegen Straße — EEA co2cars (VO 2019/631 Art. 7) und OBFCM-Realverbrauch (Art. 12), Fokusländer DE/FR/IT/ES/NL/NO, Jahrgänge 2021–2025. Stand 08/2026.';
