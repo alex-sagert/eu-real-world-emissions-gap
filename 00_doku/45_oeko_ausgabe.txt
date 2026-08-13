@@ -1,0 +1,64 @@
+﻿Timing is on.
+SET
+Time: 6,948 ms
+
+=== Wie viele Fahrzeuge tragen ueberhaupt eine Gutschrift? ================
+ jahr | fahrzeuge | mit_gutschrift | anteil_prozent | mittlere_gutschrift_g_km | groesste_gutschrift 
+------+-----------+----------------+----------------+--------------------------+---------------------
+ 2021 |   2530022 |        1190873 |           47.1 |                     1.48 |                2.60
+ 2022 |   2571007 |        1462371 |           56.9 |                     1.50 |                2.31
+ 2023 |   2765099 |        1663523 |           60.2 |                     1.53 |                2.78
+ 2024 |   2728158 |        1412649 |           51.8 |                     1.54 |                2.78
+ 2025 |   2772126 |        1460381 |           52.7 |                     1.54 |                2.78
+(5 rows)
+
+Time: 18375,283 ms (00:18,375)
+
+=== DER ENTSCHEIDENDE TEST ===============================================
+>>> faktor_wie_gemeldet  = co2_wltp / verbrauch * 100
+>>> faktor_zurueckaddiert = (co2_wltp + gutschrift) / verbrauch * 100
+>>>
+>>> Erwartung Benzin 2278, Diesel 2631 (aus der Gegenprobe in 42_wtw).
+>>> Liegt "wie gemeldet" bei den Fahrzeugen MIT Gutschrift unter diesem
+>>> Wert und "zurueckaddiert" wieder darauf, dann ist die Gutschrift
+>>> in Ewltp bereits abgezogen.
+   ft   |     gruppe      | fahrzeuge | gutschrift_g_km | faktor_wie_gemeldet | faktor_zurueckaddiert 
+--------+-----------------+-----------+-----------------+---------------------+-----------------------
+ diesel | ohne Gutschrift |    744992 |            0.00 |              2621.7 |                2621.7
+ diesel | mit Gutschrift  |   1972728 |            1.39 |              2622.8 |                2647.7
+ petrol | ohne Gutschrift |   1549428 |            0.00 |              2270.2 |                2270.2
+ petrol | mit Gutschrift  |   5037283 |            1.57 |              2265.7 |                2291.8
+(4 rows)
+
+Time: 15192,714 ms (00:15,193)
+
+=== Gegenprobe am Median, falls Ausreisser den Mittelwert ziehen ==========
+   ft   |     gruppe      | fahrzeuge | faktor_median | faktor_median_zurueckaddiert 
+--------+-----------------+-----------+---------------+------------------------------
+ diesel | ohne Gutschrift |    744992 |        2621.2 |                       2621.2
+ diesel | mit Gutschrift  |   1972728 |        2621.6 |                       2645.8
+ petrol | ohne Gutschrift |   1549428 |        2270.3 |                       2270.3
+ petrol | mit Gutschrift  |   5037283 |        2265.3 |                       2290.6
+(4 rows)
+
+Time: 30195,177 ms (00:30,195)
+
+=== Wie stark wuerde der Well-to-Wheel-Vergleich betroffen? ===============
+>>> Nur relevant, falls die Gutschrift NICHT abgezogen ist: dann waeren
+>>> die offiziellen Werte um diesen Betrag zu hoch ausgewiesen.
+ antriebsklasse | fahrzeuge | co2_offiziell | mittlere_gutschrift | anteil_prozent 
+----------------+-----------+---------------+---------------------+----------------
+ ICE_BENZIN     |   4569729 |         148.0 |                1.31 |           0.88
+ HEV            |   3090233 |         143.5 |                0.90 |           0.63
+ ICE_DIESEL     |   1965325 |         154.0 |                1.06 |           0.69
+ PHEV           |   1361130 |          31.5 |                0.00 |           0.00
+ BIFUEL         |     63689 |         119.1 |                1.52 |           1.27
+ ICE_SONSTIGE   |      6989 |         107.0 |                0.22 |           0.21
+ FLEX           |        65 |         245.9 |                0.06 |           0.03
+ UNBEKANNT      |        22 |         204.5 |                0.00 |           0.00
+(8 rows)
+
+Time: 15572,905 ms (00:15,573)
+
+>>> Ergebnis in 00_doku/06_Ergebnis_Realverbrauchsluecke.md unter
+>>> "Gepr├╝fte Annahmen" nachtragen und geprueft-Kennzeichen setzen.

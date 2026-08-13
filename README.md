@@ -202,7 +202,7 @@ Voraussetzungen: PostgreSQL 18, Python 3.11+, PowerShell 5.1+.
 .\03_skripte\99_run_all.ps1 -Liste     # zeigt die Kette ohne sie auszuführen
 ```
 
-Zwölf Schritte. Jeder schreibt seine Ausgabe nach `00_doku/<schritt>_ausgabe.txt`, die
+Achtzehn Schritte. Jeder schreibt seine Ausgabe nach `00_doku/<schritt>_ausgabe.txt`, die
 Laufzeiten landen in `00_doku/_laufzeiten.csv`. Bricht ein Schritt ab, hält die Kette an
 und nennt die fehlerhafte Datei.
 

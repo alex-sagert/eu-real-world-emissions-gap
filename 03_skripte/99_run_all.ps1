@@ -49,6 +49,9 @@ $Kette = @(
     @{ Name='21_load_smard';      Typ='ps';  Datei='21_load_smard.ps1';      Text='SMARD-CSV in die Rohschicht laden'; Smard=$true; Load=$true }
     @{ Name='13_smard_strommix';  Typ='sql'; Datei='13_smard_strommix.sql';  Text='CO2-Intensitaet des Strommixes'; Smard=$true }
     @{ Name='42_wtw_vergleich';   Typ='sql'; Datei='42_wtw_vergleich.sql';   Text='Well-to-Wheel, entscheidet H2'; Smard=$true }
+    @{ Name='43_knime_basis';     Typ='sql'; Datei='43_knime_trainingsbasis.sql'; Text='Trainingsbasis fuer die Regression' }
+    @{ Name='44_hersteller';      Typ='sql'; Datei='44_hersteller_luecke.sql';    Text='A7 Luecke je Hersteller, Mixeffekt' }
+    @{ Name='45_oeko_gutschrift'; Typ='sql'; Datei='45_oeko_gutschrift_pruefung.sql'; Text='Pruefung: ist die Oeko-Gutschrift in Ewltp abgezogen?' }
 )
 
 if ($Ab) {

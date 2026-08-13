@@ -260,6 +260,69 @@ belastbaren Maße.
 | Strommix-Größenordnung 300–450 g/kWh | **bestätigt** | 371,8 → 321,9 g/kWh, erneuerbar 41,6 → 58,3 % |
 | Emissionsfaktoren je Energieträger | **offen** | `core.emissionsfaktor.geprueft = false` für Braun-/Steinkohle, Erdgas, Biomasse |
 | BEV-Aufschlag auf den Laborwert | **bewusst offen** | drei Szenarien, Ergebnis kippt in keinem |
+| Öko-Innovationsgutschrift ist in `Ewltp` bereits abgezogen | **widerlegt** | Emissionsfaktor in beiden Gruppen identisch — siehe 10a |
+
+### 10a · Ist die Öko-Innovationsgutschrift in `Ewltp` enthalten?
+
+Ausgeführt 13.08.2026, `02_sql/45_oeko_gutschrift_pruefung.sql`, Ausgabe in
+`00_doku/45_oeko_ausgabe.txt`.
+
+**Die offene Frage.** Die Rohdaten führen zwei Spalten nebeneinander: `Ewltp` als
+zertifizierten CO₂-Wert und `Erwltp` als Gutschrift für Öko-Innovationen. Ob die
+Gutschrift in `Ewltp` schon abgezogen ist oder daneben steht, war aus dem
+Verordnungstext nicht eindeutig zu entscheiden. Davon hängt ab, ob die
+„offiziellen" Werte im Well-to-Wheel-Vergleich systematisch zu hoch ausgewiesen sind.
+
+**Der Test.** CO₂-Wert und Kraftstoffverbrauch stehen in derselben Zeile. Ihr
+Quotient ergibt den Emissionsfaktor, mit dem die Behörde selbst rechnet — aus der
+Gegenprobe in `42_wtw_vergleich.sql` bekannt als 2278 g/l Benzin und 2631 g/l
+Diesel. Ist die Gutschrift abgezogen, muss der Quotient bei Fahrzeugen mit
+Gutschrift *niedriger* liegen, und das Zurückaddieren muss ihn wiederherstellen.
+
+| Kraftstoff | Gruppe | Fahrzeuge | Gutschrift g/km | Faktor wie gemeldet | Faktor zurückaddiert |
+|---|---|---:|---:|---:|---:|
+| Diesel | ohne Gutschrift | 744.992 | 0,00 | 2621,7 | 2621,7 |
+| Diesel | **mit** Gutschrift | 1.972.728 | 1,39 | **2622,8** | 2647,7 |
+| Benzin | ohne Gutschrift | 1.549.428 | 0,00 | 2270,2 | 2270,2 |
+| Benzin | **mit** Gutschrift | 5.037.283 | 1,57 | **2265,7** | 2291,8 |
+
+**Befund: die Gutschrift ist nicht abgezogen.** Der Faktor „wie gemeldet" ist in
+beiden Gruppen praktisch identisch — beim Diesel liegt er bei den Fahrzeugen mit
+Gutschrift sogar 1,1 Punkte *höher*. Wäre die Gutschrift abgezogen, müsste er bei
+Benzin um rund 24 Punkte niedriger liegen (1,57 g/km sind 1,06 % von 148 g/km,
+1,06 % von 2270 = 24). Beobachtet sind 4,5 Punkte, und mit umgekehrtem Vorzeichen
+beim Diesel — das ist Rauschen, kein Effekt. Das Zurückaddieren schießt in beiden
+Fällen über den bekannten Faktor hinaus (2647,7 > 2631; 2291,8 > 2278).
+
+Der Median bestätigt es unabhängig vom Mittelwert: Diesel 2621,2 gegen 2621,6,
+Benzin 2270,3 gegen 2265,3.
+
+**Konsequenz.** `Ewltp` ist der roh gemessene Zertifizierungswert. Die Gutschrift
+wird erst auf Flottenebene gegen das Herstellerziel gerechnet — genau so, wie es
+in A3 umgesetzt ist (`flottenmittel_vor_oeko` gegen `flottenmittel_nach_oeko`).
+Die Spalte „offiziell" im Well-to-Wheel-Vergleich bleibt unverändert richtig.
+
+**Größenordnung, falls der Test doch täuscht.** Die Gutschrift beträgt im Mittel
+0,90 bis 1,52 g/km, das sind 0,63 bis 1,27 % des CO₂-Werts. Selbst eine falsche
+Entscheidung würde die Ergebnisse nicht bewegen — bei einer PHEV-Lücke von
+320 % ist ein Prozentpunkt nicht sichtbar.
+
+| Antriebsklasse | Fahrzeuge | CO₂ offiziell | mittlere Gutschrift | Anteil |
+|---|---:|---:|---:|---:|
+| ICE_BENZIN | 4.569.729 | 148,0 | 1,31 | 0,88 % |
+| ICE_DIESEL | 1.965.325 | 154,0 | 1,06 | 0,69 % |
+| HEV | 3.090.233 | 143,5 | 0,90 | 0,63 % |
+| PHEV | 1.361.130 | 31,5 | **0,00** | **0,00 %** |
+
+**Nebenbefund, der die Hauptaussage stützt.** Plug-in-Hybride tragen überhaupt
+keine Öko-Innovationsgutschrift — nicht ein einziges der 1,36 Millionen
+Fahrzeuge. Ihr niedriger Zertifizierungswert von 31,5 g/km stammt vollständig aus
+dem Utility Factor, nicht aus angerechneter Zusatztechnik. Der zentrale Vergleich
+dieser Arbeit ist von der Gutschriftfrage also gar nicht berührt.
+
+**Und ein Randbefund zur Verbreitung:** 52,7 % aller deutschen Neuzulassungen 2025
+tragen eine Gutschrift, 2021 waren es 47,1 %, 2023 sogar 60,2 %. Der Mechanismus
+ist die Regel, nicht die Ausnahme.
 
 ---
 
